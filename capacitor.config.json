@@ -1,0 +1,6 @@
+{
+  "appId": "com.aimation.app",
+  "appName": "Ai-mation",
+  "webDir": "dist",
+  "android": { "allowMixedContent": false }
+}

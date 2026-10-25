@@ -1,0 +1,70 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: ["**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web app
+        run: npm run build
+
+      - name: Create Android project
+        run: |
+          npx cap add android
+          # صلاحية حفظ الملفات في Documents على أندرويد 10 وأقدم
+          sed -i 's#<uses-permission android:name="android.permission.INTERNET" />#&\n    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />#' android/app/src/main/AndroidManifest.xml
+
+      - name: Generate app icons
+        continue-on-error: true
+        run: npx --yes @capacitor/assets@3.0.5 generate --android --iconBackgroundColor '#0f0f1a' --splashBackgroundColor '#0f0f1a'
+
+      - name: Sync
+        run: npx cap sync android
+
+      - name: Build APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+          cp app/build/outputs/apk/debug/app-debug.apk ../Ai-mation.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Ai-mation-apk
+          path: Ai-mation.apk
+
+      - name: Publish to "apk-latest" release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-latest
+          name: Ai-mation APK (آخر نسخة)
+          prerelease: true
+          make_latest: false
+          target_commitish: ${{ github.sha }}
+          files: Ai-mation.apk
+          body: |
+            آخر نسخة من تطبيق Ai-mation للأندرويد.
+            حمّل ملف Ai-mation.apk على هاتفك وثبته (فعّل "التثبيت من مصادر غير معروفة").
+            Commit: ${{ github.sha }}

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f0f1a" />
+  <title>Ai-mation</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./src/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Ai-mation</h1>
+    <span class="engine-badge" id="engineBadge"></span>
+  </header>
+
+  <main>
+    <!-- توليد الصور -->
+    <section class="view active" id="view-image">
+      <label class="field">
+        <span>اكتب وصف الصورة (عربي أو إنجليزي)</span>
+        <textarea id="imgPrompt" rows="3" placeholder="مثال: محارب صحراوي يقف أمام قلعة قديمة عند الغروب"></textarea>
+      </label>
+
+      <div class="field">
+        <span>الشخصية (اختياري)</span>
+        <select id="imgCharacter"></select>
+      </div>
+
+      <div class="field">
+        <span>النمط</span>
+        <div class="chips" id="styleChips"></div>
+      </div>
+
+      <div class="row">
+        <label class="field grow">
+          <span>المقاس</span>
+          <select id="imgRatio">
+            <option value="1:1">مربع 1:1</option>
+            <option value="9:16" selected>طولي 9:16 (ريلز/تيك توك)</option>
+            <option value="16:9">عرضي 16:9 (يوتيوب)</option>
+            <option value="3:4">بورتريه 3:4</option>
+            <option value="4:3">4:3</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>العدد</span>
+          <select id="imgCount">
+            <option>1</option><option selected>2</option><option>3</option><option>4</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="field">
+        <span>المحرك</span>
+        <select id="imgEngine">
+          <option value="pollinations">Pollinations — مجاني بدون مفتاح</option>
+          <option value="hf-flux-schnell">Hugging Face — FLUX.1 schnell (سريع)</option>
+          <option value="hf-flux-dev">Hugging Face — FLUX.1 dev (جودة أعلى)</option>
+          <option value="hf-sdxl">Hugging Face — Stable Diffusion XL</option>
+        </select>
+      </label>
+
+      <details class="field">
+        <summary>خيارات متقدمة</summary>
+        <label class="field"><span>أشياء لا تريدها في الصورة</span>
+          <input id="imgNegative" placeholder="مثال: نص، علامة مائية، تشوه" />
+        </label>
+        <label class="field"><span>Seed (اتركه فارغاً للعشوائي)</span>
+          <input id="imgSeed" type="number" inputmode="numeric" />
+        </label>
+        <label class="check"><input type="checkbox" id="imgEnhance" checked /> تحسين الوصف تلقائياً بإضافة تفاصيل جودة</label>
+      </details>
+
+      <button class="primary" id="imgGenerate">✨ توليد الصور</button>
+      <div class="status" id="imgStatus"></div>
+      <div class="results" id="imgResults"></div>
+    </section>
+
+    <!-- توليد الفيديو -->
+    <section class="view" id="view-video">
+      <div class="seg" id="vidMode">
+        <button data-mode="t2v" class="on">نص ← فيديو</button>
+        <button data-mode="i2v">صورة ← فيديو</button>
+      </div>
+
+      <div id="i2vSource" hidden>
+        <div class="field">
+          <span>الصورة المصدر</span>
+          <div class="source-pick">
+            <img id="vidSourcePreview" alt="" hidden />
+            <div class="row">
+              <button id="vidPickGallery">من المعرض</button>
+              <label class="btn">رفع صورة<input type="file" id="vidUpload" accept="image/*" hidden /></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <label class="field">
+        <span>وصف الحركة / المشهد</span>
+        <textarea id="vidPrompt" rows="3" placeholder="مثال: الكاميرا تقترب ببطء، الرياح تحرك الشعر والملابس"></textarea>
+      </label>
+
+      <div class="field">
+        <span>الشخصية (اختياري)</span>
+        <select id="vidCharacter"></select>
+      </div>
+
+      <label class="field">
+        <span>النموذج (Hugging Face)</span>
+        <input id="vidModel" />
+        <small class="hint" id="vidModelHint"></small>
+      </label>
+
+      <p class="note">⚠️ الفيديو يحتاج توكن Hugging Face. الرصيد المجاني الشهري محدود، وقد يكفي لعدد قليل من المقاطع فقط. يستغرق التوليد من دقيقة إلى عدة دقائق.</p>
+
+      <button class="primary" id="vidGenerate">🎬 توليد الفيديو</button>
+      <div class="status" id="vidStatus"></div>
+      <div class="results" id="vidResults"></div>
+    </section>
+
+    <!-- الشخصيات -->
+    <section class="view" id="view-characters">
+      <p class="note">احفظ شخصية بوصف ثابت وSeed ثابت لتحصل على نفس الشكل تقريباً في كل صورة وفيديو.</p>
+      <form id="charForm" class="card">
+        <input type="hidden" id="charId" />
+        <label class="field"><span>اسم الشخصية</span><input id="charName" required placeholder="مثال: ليلى" /></label>
+        <label class="field"><span>الوصف الثابت للشكل</span>
+          <textarea id="charDesc" rows="3" required placeholder="مثال: امرأة في العشرينات، شعر أسود طويل مموج، عيون عسلية، ترتدي عباءة زرقاء مطرزة"></textarea>
+        </label>
+        <label class="field"><span>Seed ثابت</span><input id="charSeed" type="number" inputmode="numeric" /></label>
+        <div class="row">
+          <button class="primary grow" type="submit">💾 حفظ الشخصية</button>
+          <button type="button" id="charReset">جديد</button>
+        </div>
+      </form>
+      <div id="charList" class="list"></div>
+    </section>
+
+    <!-- المعرض -->
+    <section class="view" id="view-gallery">
+      <div class="seg" id="galFilter">
+        <button data-f="all" class="on">الكل</button>
+        <button data-f="image">صور</button>
+        <button data-f="video">فيديو</button>
+      </div>
+      <div class="results" id="galleryGrid"></div>
+      <p class="empty" id="galleryEmpty">المعرض فارغ. ابدأ بتوليد صورة!</p>
+    </section>
+
+    <!-- الإعدادات -->
+    <section class="view" id="view-settings">
+      <div class="card">
+        <label class="field"><span>توكن Hugging Face</span>
+          <input id="setToken" type="password" placeholder="hf_..." autocomplete="off" />
+          <small class="hint">احصل عليه مجاناً من huggingface.co/settings/tokens. اختر نوع Fine-grained وفعّل صلاحية "Make calls to Inference Providers". يُحفظ على جهازك فقط.</small>
+        </label>
+        <div class="row">
+          <button class="primary grow" id="setSave">حفظ</button>
+          <button id="setTest">اختبار التوكن</button>
+        </div>
+        <div class="status" id="setStatus"></div>
+      </div>
+      <div class="card">
+        <label class="check"><input type="checkbox" id="setTranslate" checked /> ترجمة الوصف العربي إلى الإنجليزية تلقائياً (نتائج أفضل)</label>
+        <label class="check"><input type="checkbox" id="setAutoSave" checked /> حفظ النتائج في المعرض تلقائياً</label>
+      </div>
+      <div class="card danger">
+        <button id="setClearGallery">🗑️ حذف كل المعرض</button>
+      </div>
+      <p class="hint center">Ai-mation v1.0</p>
+    </section>
+  </main>
+
+  <nav class="tabbar">
+    <button data-view="image" class="on"><span>🖼️</span>صورة</button>
+    <button data-view="video"><span>🎬</span>فيديو</button>
+    <button data-view="characters"><span>🧑‍🎨</span>شخصيات</button>
+    <button data-view="gallery"><span>🗂️</span>المعرض</button>
+    <button data-view="settings"><span>⚙️</span>إعدادات</button>
+  </nav>
+
+  <dialog id="viewer">
+    <div class="viewer-body" id="viewerBody"></div>
+    <p class="viewer-prompt" id="viewerPrompt"></p>
+    <div class="row wrap" id="viewerActions"></div>
+  </dialog>
+
+  <dialog id="picker">
+    <h3>اختر صورة</h3>
+    <div class="results small" id="pickerGrid"></div>
+    <button id="pickerClose">إغلاق</button>
+  </dialog>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
