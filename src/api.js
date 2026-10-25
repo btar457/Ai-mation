@@ -1,4 +1,5 @@
 import { InferenceClient } from "@huggingface/inference";
+import { Client as GradioClient } from "@gradio/client";
 
 export const STYLES = [
   { id: "none", label: "بدون", suffix: "" },
@@ -16,6 +17,7 @@ export const STYLES = [
 ];
 
 export const IMAGE_ENGINES = {
+  "hf-space": { label: "FLUX Space", needsToken: false, space: "black-forest-labs/FLUX.1-schnell" },
   pollinations: { label: "Pollinations", needsToken: false },
   "hf-flux-schnell": { label: "FLUX schnell", needsToken: true, model: "black-forest-labs/FLUX.1-schnell" },
   "hf-flux-dev": { label: "FLUX dev", needsToken: true, model: "black-forest-labs/FLUX.1-dev" },
@@ -49,9 +51,11 @@ function client(token) {
 function friendlyError(err) {
   const msg = String(err?.message || err);
   if (/401|unauthorized|invalid.*token/i.test(msg)) return "التوكن غير صحيح أو لا يملك صلاحية Inference Providers.";
-  if (/402|credit|quota|payment|exceeded/i.test(msg)) return "انتهى الرصيد المجاني لهذا الشهر على Hugging Face. جرّب Pollinations للصور أو انتظر تجديد الرصيد.";
+  if (/gpu quota|zerogpu|exceeded your .*quota/i.test(msg)) return "انتهت حصة GPU المجانية لهذا اليوم على Hugging Face Spaces. أضف توكن Hugging Face في الإعدادات لحصة أكبر، أو انتظر تجددها.";
+  if (/402|credit|payment|exceeded/i.test(msg)) return "انتهى الرصيد المجاني الشهري لـ Inference Providers على Hugging Face. استخدم محرك \"FLUX Space\" المجاني.";
   if (/429|rate/i.test(msg)) return "طلبات كثيرة خلال وقت قصير. انتظر قليلاً ثم أعد المحاولة.";
   if (/503|loading|unavailable/i.test(msg)) return "النموذج مشغول أو يتم تحميله حالياً. أعد المحاولة بعد دقيقة.";
+  if (/metadata could not be loaded|app config|could not connect|space.*(sleeping|paused|error)/i.test(msg)) return "تعذر الاتصال بـ FLUX Space (قد يكون متوقفاً مؤقتاً). أعد المحاولة بعد قليل أو اختر محركاً آخر.";
   if (/failed to fetch|network/i.test(msg)) return "تعذر الاتصال. تأكد من الإنترنت.";
   return msg;
 }
@@ -60,7 +64,9 @@ export async function withFriendlyErrors(fn) {
   try {
     return await fn();
   } catch (err) {
-    throw new Error(friendlyError(err));
+    const e = new Error(friendlyError(err));
+    e.code = err?.code;
+    throw e;
   }
 }
 
@@ -80,12 +86,14 @@ export async function translateToEnglish(text, token) {
       // ننتقل إلى البديل المجاني
     }
   }
+  // بديل مجاني بدون مفتاح: MyMemory
   try {
-    const q = `Translate the following text to English. Reply with the translation only, no quotes:\n${text}`;
-    const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(q)}`);
+    const res = await fetch(
+      `https://api.mymemory.translated.net/get?langpair=ar|en&q=${encodeURIComponent(text.slice(0, 500))}`,
+    );
     if (res.ok) {
-      const t = (await res.text()).trim();
-      if (t && !hasArabic(t)) return t;
+      const t = (await res.json())?.responseData?.translatedText?.trim();
+      if (t && !hasArabic(t) && !/MYMEMORY WARNING/i.test(t)) return t;
     }
   } catch {
     // إذا فشلت الترجمة نرسل النص كما هو
@@ -104,20 +112,64 @@ export function sizeFor(ratio) {
   return RATIOS[ratio] || RATIOS["1:1"];
 }
 
-async function pollinationsImage({ prompt, negative, width, height, seed, signal }) {
-  const params = new URLSearchParams({
-    width, height, seed,
-    model: "flux",
-    nologo: "true",
-    safe: "true",
-    negative_prompt: negative,
-  });
-  const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?${params}`;
+async function pollinationsImage({ prompt, width, height, seed, pollinationsKey, signal }) {
+  const params = new URLSearchParams({ width, height, seed, nologo: "true", safe: "true" });
+  let url;
+  if (pollinationsKey) {
+    params.set("key", pollinationsKey);
+    url = `https://gen.pollinations.ai/image/${encodeURIComponent(prompt)}?${params}`;
+  } else {
+    params.set("model", "flux");
+    url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?${params}`;
+  }
   const res = await fetch(url, { signal });
-  if (!res.ok) throw new Error(`Pollinations: ${res.status}`);
+  if (res.status === 402 || res.status === 429) {
+    const body = await res.json().catch(() => ({}));
+    const code = body?.error?.code;
+    const e = new Error(
+      pollinationsKey
+        ? "رصيد مفتاح Pollinations انتهى. استخدم محرك \"FLUX Space\" المجاني."
+        : "Pollinations المجاني يسمح بصورة واحدة كل 45 ثانية فقط.",
+    );
+    e.code = pollinationsKey ? code : "FREE_LIMIT";
+    throw e;
+  }
+  if (res.status === 401) throw new Error("مفتاح Pollinations غير صحيح.");
+  if (!res.ok) throw new Error(`Pollinations: خطأ ${res.status}`);
   const blob = await res.blob();
   if (!blob.type.startsWith("image/")) throw new Error("Pollinations لم يرجع صورة. أعد المحاولة.");
   return blob;
+}
+
+// Hugging Face Spaces (ZeroGPU): حصة مجانية يومية، وتعمل بدون توكن بحصة أقل
+const spaceClients = new Map();
+async function spaceImage({ engine, prompt, width, height, seed, token }) {
+  const { space } = IMAGE_ENGINES[engine];
+  const key = `${space}|${token || ""}`;
+  if (!spaceClients.has(key)) {
+    spaceClients.set(key, GradioClient.connect(space, token ? { hf_token: token } : {}));
+  }
+  let app;
+  try {
+    app = await spaceClients.get(key);
+  } catch (e) {
+    spaceClients.delete(key);
+    throw e;
+  }
+  const res = await app.predict("/infer", {
+    prompt,
+    seed,
+    randomize_seed: false,
+    width,
+    height,
+    num_inference_steps: 4,
+  });
+  const out = res?.data?.[0];
+  const url = typeof out === "string" ? out : out?.url;
+  if (!url) throw new Error("الـ Space لم يرجع صورة. أعد المحاولة.");
+  const img = await fetch(url, token ? { headers: { Authorization: `Bearer ${token}` } } : {});
+  if (!img.ok) throw new Error(`تعذر تحميل الصورة: ${img.status}`);
+  return img.blob();
 }
 
 async function hfImage({ engine, prompt, negative, width, height, seed, token, signal }) {
@@ -133,9 +185,8 @@ async function hfImage({ engine, prompt, negative, width, height, seed, token, s
 export async function generateImage(opts) {
   const negative = [DEFAULT_NEGATIVE, opts.negative].filter(Boolean).join(", ");
   const args = { ...opts, negative };
-  return withFriendlyErrors(() =>
-    opts.engine === "pollinations" ? pollinationsImage(args) : hfImage(args),
-  );
+  const run = { pollinations: pollinationsImage, "hf-space": spaceImage }[opts.engine] || hfImage;
+  return withFriendlyErrors(() => run(args));
 }
 
 export async function generateVideo({ mode, model, prompt, image, token, signal }) {

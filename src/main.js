@@ -11,6 +11,10 @@ import { downloadBlob, shareBlob } from "./save.js";
 
 const $ = (id) => document.getElementById(id);
 let settings = loadSettings();
+// المستخدمون القدامى: Pollinations لم يعد مجانياً بلا حدود، ننقلهم إلى FLUX Space
+if (!settings.engineMigrated) {
+  settings = saveSettings({ engineMigrated: true, imgEngine: settings.imgEngine === "pollinations" ? "hf-space" : settings.imgEngine });
+}
 
 // ---------- أدوات عامة ----------
 
@@ -233,8 +237,8 @@ $("imgGenerate").addEventListener("click", async () => {
 
   let engine = $("imgEngine").value;
   if (IMAGE_ENGINES[engine].needsToken && !settings.hfToken) {
-    toast("لا يوجد توكن، سيتم استخدام Pollinations المجاني");
-    engine = "pollinations";
+    toast("لا يوجد توكن، سيتم استخدام FLUX Space المجاني");
+    engine = "hf-space";
   }
 
   btn.disabled = true;
@@ -273,11 +277,24 @@ $("imgGenerate").addEventListener("click", async () => {
     const errors = [];
     // نولد بالتتابع لتجنب حدود الطلبات في الخدمات المجانية
     for (let i = 0; i < count; i++) {
+      const genArgs = {
+        engine, prompt: fullPrompt, negative, width, height,
+        seed: baseSeed + i, token: settings.hfToken, pollinationsKey: settings.pollinationsKey,
+      };
       try {
-        const blob = await generateImage({
-          engine, prompt: fullPrompt, negative, width, height,
-          seed: baseSeed + i, token: settings.hfToken,
-        });
+        let blob;
+        try {
+          blob = await generateImage(genArgs);
+        } catch (e) {
+          if (e.code !== "FREE_LIMIT") throw e;
+          // حد Pollinations المجاني: ننتظر ثم نعيد المحاولة مرة واحدة
+          for (let s = 46; s > 0; s--) {
+            setStatus(status, `⏳ Pollinations المجاني يسمح بصورة كل 45 ثانية... الصورة ${i + 1} بعد ${s} ثانية`);
+            await new Promise((r) => setTimeout(r, 1000));
+          }
+          setStatus(status, `🎨 جارٍ توليد الصورة ${i + 1} من ${count}...`);
+          blob = await generateImage(genArgs);
+        }
         const item = {
           id: uid(), type: "image", blob, created: Date.now(),
           prompt: fullPrompt, originalPrompt: raw, engine, seed: baseSeed + i,
@@ -418,11 +435,12 @@ async function renderGallery() {
 // ---------- الإعدادات ----------
 
 $("setToken").value = settings.hfToken;
+$("setPollKey").value = settings.pollinationsKey;
 $("setTranslate").checked = settings.translate;
 $("setAutoSave").checked = settings.autoSave;
 
 $("setSave").addEventListener("click", () => {
-  settings = saveSettings({ hfToken: $("setToken").value.trim() });
+  settings = saveSettings({ hfToken: $("setToken").value.trim(), pollinationsKey: $("setPollKey").value.trim() });
   updateBadge();
   toast("تم الحفظ");
 });

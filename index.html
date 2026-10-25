@@ -56,10 +56,11 @@
       <label class="field">
         <span>المحرك</span>
         <select id="imgEngine">
-          <option value="pollinations">Pollinations — مجاني بدون مفتاح</option>
-          <option value="hf-flux-schnell">Hugging Face — FLUX.1 schnell (سريع)</option>
-          <option value="hf-flux-dev">Hugging Face — FLUX.1 dev (جودة أعلى)</option>
-          <option value="hf-sdxl">Hugging Face — Stable Diffusion XL</option>
+          <option value="hf-space">FLUX Space — مجاني (حصة يومية) ⭐</option>
+          <option value="pollinations">Pollinations — صورة كل 45 ثانية (أو بمفتاح)</option>
+          <option value="hf-flux-schnell">FLUX.1 schnell — رصيد HF الشهري (توكن)</option>
+          <option value="hf-flux-dev">FLUX.1 dev — جودة أعلى، رصيد HF الشهري (توكن)</option>
+          <option value="hf-sdxl">Stable Diffusion XL — رصيد HF الشهري (توكن)</option>
         </select>
       </label>
 
@@ -163,6 +164,12 @@
           <button id="setTest">اختبار التوكن</button>
         </div>
         <div class="status" id="setStatus"></div>
+      </div>
+      <div class="card">
+        <label class="field"><span>مفتاح Pollinations (اختياري)</span>
+          <input id="setPollKey" type="password" placeholder="sk_..." autocomplete="off" />
+          <small class="hint">من enter.pollinations.ai/keys. بدون مفتاح يسمح Pollinations بصورة واحدة كل 45 ثانية فقط.</small>
+        </label>
       </div>
       <div class="card">
         <label class="check"><input type="checkbox" id="setTranslate" checked /> ترجمة الوصف العربي إلى الإنجليزية تلقائياً (نتائج أفضل)</label>

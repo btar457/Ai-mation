@@ -2,9 +2,10 @@ const KEY = "aimation.settings";
 
 const defaults = {
   hfToken: "",
+  pollinationsKey: "",
   translate: true,
   autoSave: true,
-  imgEngine: "pollinations",
+  imgEngine: "hf-space",
   imgStyle: "realistic",
 };
 
