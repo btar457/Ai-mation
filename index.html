@@ -57,6 +57,7 @@
         <span>المحرك</span>
         <select id="imgEngine">
           <option value="hf-space">FLUX Space — مجاني (حصة يومية) ⭐</option>
+          <option value="ai-horde">AI Horde — مجاني بلا رصيد (قد ينتظر في الطابور)</option>
           <option value="pollinations">Pollinations — صورة كل 45 ثانية (أو بمفتاح)</option>
           <option value="hf-flux-schnell">FLUX.1 schnell — رصيد HF الشهري (توكن)</option>
           <option value="hf-flux-dev">FLUX.1 dev — جودة أعلى، رصيد HF الشهري (توكن)</option>
@@ -82,6 +83,20 @@
 
     <!-- توليد الفيديو -->
     <section class="view" id="view-video">
+      <div class="card colab-card">
+        <b>🚀 فيديو مجاني بجودة أعلى عبر Google Colab</b>
+        <p class="hint">يعمل على كرت شاشة مجاني من Google بدون رصيد: نص أو صورة ← فيديو، مشاهد متعددة، إصلاح الوجوه، مونتاج آلي على الإيقاع، وتعليق صوتي عراقي مع ترجمة.</p>
+        <button class="primary" id="openColab">فتح Colab</button>
+        <details>
+          <summary>طريقة الاستخدام</summary>
+          <ol class="steps">
+            <li>افتح Colab بحساب Google، ثم من القائمة: Runtime ← Change runtime type ← T4 GPU.</li>
+            <li>شغّل الخلية 1️⃣ ثم 2️⃣ وانتظر "✅ النموذج جاهز".</li>
+            <li>لتحريك صورة من التطبيق: افتحها في المعرض واضغط "🚀 حرّكها في Colab"، ثم ارفعها من زر 🖼️ في Colab وشغّل خلية 4️⃣.</li>
+            <li>الحصة المجانية تتجدد يومياً. احفظ فيديوهاتك في Drive من الخلية 5️⃣.</li>
+          </ol>
+        </details>
+      </div>
       <div class="seg" id="vidMode">
         <button data-mode="t2v" class="on">نص ← فيديو</button>
         <button data-mode="i2v">صورة ← فيديو</button>
@@ -174,6 +189,7 @@
       <div class="card">
         <label class="check"><input type="checkbox" id="setTranslate" checked /> ترجمة الوصف العربي إلى الإنجليزية تلقائياً (نتائج أفضل)</label>
         <label class="check"><input type="checkbox" id="setAutoSave" checked /> حفظ النتائج في المعرض تلقائياً</label>
+        <label class="check"><input type="checkbox" id="setFallback" checked /> إذا فشل المحرك جرّب المحركات المجانية الأخرى تلقائياً</label>
       </div>
       <div class="card danger">
         <button id="setClearGallery">🗑️ حذف كل المعرض</button>

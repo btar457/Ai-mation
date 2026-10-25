@@ -5,6 +5,7 @@ const defaults = {
   pollinationsKey: "",
   translate: true,
   autoSave: true,
+  fallback: true,
   imgEngine: "hf-space",
   imgStyle: "realistic",
 };

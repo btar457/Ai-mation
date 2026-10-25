@@ -1,4 +1,5 @@
 import { Capacitor } from "@capacitor/core";
+import { Browser } from "@capacitor/browser";
 import {
   STYLES, IMAGE_ENGINES, VIDEO_MODELS,
   buildPrompt, sizeFor, randomSeed, translateToEnglish,
@@ -10,6 +11,12 @@ import { putItem, deleteItem, clearStore, getAll, uid } from "./db.js";
 import { downloadBlob, shareBlob } from "./save.js";
 
 const $ = (id) => document.getElementById(id);
+const COLAB_URL = "https://colab.research.google.com/github/btar457/Ai-mation/blob/ccr-64095e7e-ed952s/colab/Ai-mation-Video.ipynb";
+
+async function openColab() {
+  if (Capacitor.isNativePlatform()) await Browser.open({ url: COLAB_URL });
+  else window.open(COLAB_URL, "_blank", "noopener");
+}
 let settings = loadSettings();
 // المستخدمون القدامى: Pollinations لم يعد مجانياً بلا حدود، ننقلهم إلى FLUX Space
 if (!settings.engineMigrated) {
@@ -97,6 +104,10 @@ function openViewer(item, { inGallery }) {
   ];
   if (item.type === "image") {
     actions.push(["🎬 تحريك", () => { $("viewer").close(); useAsVideoSource(item.blob); }]);
+    actions.push(["🚀 حرّكها في Colab", async () => {
+      toast(await downloadBlob(item.blob, fileBase(item)) + " — ارفعها من زر 🖼️ في Colab");
+      setTimeout(openColab, 1500);
+    }]);
     actions.push(["🔁 نفس الوصف", () => {
       $("viewer").close();
       $("imgPrompt").value = item.originalPrompt || item.prompt;
@@ -237,7 +248,7 @@ $("imgGenerate").addEventListener("click", async () => {
 
   let engine = $("imgEngine").value;
   if (IMAGE_ENGINES[engine].needsToken && !settings.hfToken) {
-    toast("لا يوجد توكن، سيتم استخدام FLUX Space المجاني");
+    toast("لا يوجد توكن، سيتم استخدام المحركات المجانية");
     engine = "hf-space";
   }
 
@@ -280,11 +291,13 @@ $("imgGenerate").addEventListener("click", async () => {
       const genArgs = {
         engine, prompt: fullPrompt, negative, width, height,
         seed: baseSeed + i, token: settings.hfToken, pollinationsKey: settings.pollinationsKey,
+        fallback: settings.fallback,
+        onStatus: (msg) => setStatus(status, `[${i + 1}/${count}] ${msg}`),
       };
       try {
-        let blob;
+        let blob, used;
         try {
-          blob = await generateImage(genArgs);
+          ({ blob, engine: used } = await generateImage(genArgs));
         } catch (e) {
           if (e.code !== "FREE_LIMIT") throw e;
           // حد Pollinations المجاني: ننتظر ثم نعيد المحاولة مرة واحدة
@@ -293,12 +306,13 @@ $("imgGenerate").addEventListener("click", async () => {
             await new Promise((r) => setTimeout(r, 1000));
           }
           setStatus(status, `🎨 جارٍ توليد الصورة ${i + 1} من ${count}...`);
-          blob = await generateImage(genArgs);
+          ({ blob, engine: used } = await generateImage({ ...genArgs, fallback: false }));
         }
         const item = {
           id: uid(), type: "image", blob, created: Date.now(),
-          prompt: fullPrompt, originalPrompt: raw, engine, seed: baseSeed + i,
+          prompt: fullPrompt, originalPrompt: raw, engine: used, seed: baseSeed + i,
         };
+        if (used !== engine) toast(`تم التوليد عبر ${IMAGE_ENGINES[used].label}`);
         if (settings.autoSave) await putItem("gallery", item);
         tiles[i].replaceWith(resultTile(item, "imgResults"));
         ok++;
@@ -457,6 +471,9 @@ $("setTest").addEventListener("click", async () => {
 });
 $("setTranslate").addEventListener("change", (e) => { settings = saveSettings({ translate: e.target.checked }); });
 $("setAutoSave").addEventListener("change", (e) => { settings = saveSettings({ autoSave: e.target.checked }); });
+$("setFallback").checked = settings.fallback;
+$("setFallback").addEventListener("change", (e) => { settings = saveSettings({ fallback: e.target.checked }); });
+$("openColab").addEventListener("click", () => openColab().catch((e) => toast(e.message)));
 $("setClearGallery").addEventListener("click", async () => {
   if (!confirm("حذف كل الصور والفيديوهات من المعرض؟ لا يمكن التراجع.")) return;
   await clearStore("gallery");

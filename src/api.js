@@ -18,6 +18,7 @@ export const STYLES = [
 
 export const IMAGE_ENGINES = {
   "hf-space": { label: "FLUX Space", needsToken: false, space: "black-forest-labs/FLUX.1-schnell" },
+  "ai-horde": { label: "AI Horde", needsToken: false },
   pollinations: { label: "Pollinations", needsToken: false },
   "hf-flux-schnell": { label: "FLUX schnell", needsToken: true, model: "black-forest-labs/FLUX.1-schnell" },
   "hf-flux-dev": { label: "FLUX dev", needsToken: true, model: "black-forest-labs/FLUX.1-dev" },
@@ -182,11 +183,100 @@ async function hfImage({ engine, prompt, negative, width, height, seed, token, s
   );
 }
 
+// AI Horde: شبكة تطوعية مجانية بلا رصيد، قد تنتظر في الطابور قليلاً
+const HORDE = "https://aihorde.net/api/v2";
+const HORDE_HEADERS = { apikey: "0000000000", "Client-Agent": "Ai-mation:1.0:github.com/btar457/Ai-mation" };
+const fit64 = (w, h, max) => {
+  const k = Math.min(1, max / Math.max(w, h));
+  return [Math.round((w * k) / 64) * 64, Math.round((h * k) / 64) * 64];
+};
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function hordeRequest({ prompt, negative, width, height, seed, onStatus, signal }, model, maxSide, steps) {
+  const [w, h] = fit64(width, height, maxSide);
+  const res = await fetch(`${HORDE}/generate/async`, {
+    method: "POST",
+    headers: { ...HORDE_HEADERS, "Content-Type": "application/json" },
+    signal,
+    body: JSON.stringify({
+      prompt: negative ? `${prompt} ### ${negative}` : prompt,
+      params: { width: w, height: h, steps, seed: String(seed), cfg_scale: 6, sampler_name: "k_euler_a", karras: true, n: 1 },
+      models: model ? [model] : [],
+      nsfw: false,
+      censor_nsfw: true,
+      r2: true,
+      shared: false,
+      trusted_workers: false,
+      slow_workers: true,
+      allow_downgrade: true,
+    }),
+  });
+  const job = await res.json().catch(() => ({}));
+  if (!res.ok || !job.id) {
+    const e = new Error(`AI Horde: ${job.message || res.status}`);
+    e.retrySmaller = /upfront|kudos|resolution|too large|steps/i.test(job.message || "");
+    throw e;
+  }
+  const started = Date.now();
+  for (;;) {
+    await sleep(3000);
+    if (Date.now() - started > 8 * 60 * 1000) throw new Error("AI Horde: الطابور طويل جداً الآن. أعد المحاولة لاحقاً.");
+    const st = await (await fetch(`${HORDE}/generate/check/${job.id}`, { headers: HORDE_HEADERS, signal })).json();
+    if (st.faulted) throw new Error("AI Horde: فشل التوليد عند المتطوع. أعد المحاولة.");
+    if (st.is_possible === false) {
+      const e = new Error("AI Horde: لا يوجد متطوع متاح لهذا الطلب الآن.");
+      e.retrySmaller = true;
+      throw e;
+    }
+    if (st.done) break;
+    onStatus?.(st.queue_position > 0
+      ? `⏳ AI Horde: ترتيبك في الطابور ${st.queue_position} — الانتظار المتوقع ${st.wait_time} ثانية`
+      : `🎨 AI Horde: جارٍ الرسم... (${st.wait_time} ثانية تقريباً)`);
+  }
+  const out = await (await fetch(`${HORDE}/generate/status/${job.id}`, { headers: HORDE_HEADERS, signal })).json();
+  const gen = out.generations?.[0];
+  if (!gen?.img) throw new Error("AI Horde لم يرجع صورة.");
+  if (gen.censored) throw new Error("AI Horde حجب الصورة بفلتر المحتوى. عدّل الوصف.");
+  const img = gen.img.startsWith("http") ? await fetch(gen.img) : await fetch(`data:image/webp;base64,${gen.img}`);
+  return img.blob();
+}
+
+async function hordeImage(args) {
+  try {
+    return await hordeRequest(args, "AlbedoBase XL (SDXL)", 1024, 25);
+  } catch (e) {
+    if (!e.retrySmaller) throw e;
+    // طلب أخف يناسب المستخدم المجهول ويقبله متطوعون أكثر
+    args.onStatus?.("⏳ AI Horde: نعيد المحاولة بإعدادات أخف...");
+    return hordeRequest(args, null, 768, 20);
+  }
+}
+
+const RUNNERS = { pollinations: pollinationsImage, "hf-space": spaceImage, "ai-horde": hordeImage };
+// ترتيب المحركات المجانية البديلة عند فشل المحرك المختار
+const FREE_FALLBACK = ["hf-space", "ai-horde", "pollinations"];
+
+/** يرجع { blob, engine }. إذا فشل المحرك المختار يجرب المحركات المجانية الأخرى تلقائياً. */
 export async function generateImage(opts) {
   const negative = [DEFAULT_NEGATIVE, opts.negative].filter(Boolean).join(", ");
   const args = { ...opts, negative };
-  const run = { pollinations: pollinationsImage, "hf-space": spaceImage }[opts.engine] || hfImage;
-  return withFriendlyErrors(() => run(args));
+  const order = [opts.engine];
+  if (opts.fallback) order.push(...FREE_FALLBACK.filter((e) => e !== opts.engine));
+  const errors = [];
+  for (const engine of order) {
+    if (engine !== opts.engine) opts.onStatus?.(`🔁 نجرب ${IMAGE_ENGINES[engine].label}...`);
+    try {
+      const blob = await withFriendlyErrors(() => (RUNNERS[engine] || hfImage)({ ...args, engine }));
+      return { blob, engine };
+    } catch (e) {
+      // حد Pollinations للمحرك المختار نتركه للواجهة لتنتظر وتعيد المحاولة
+      if (e.code === "FREE_LIMIT" && engine === opts.engine && order.length === 1) throw e;
+      errors.push(`${IMAGE_ENGINES[engine].label}: ${e.message}`);
+    }
+  }
+  const e = new Error(errors.join("\n"));
+  e.details = errors;
+  throw e;
 }
 
 export async function generateVideo({ mode, model, prompt, image, token, signal }) {

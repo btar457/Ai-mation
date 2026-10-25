@@ -149,3 +149,8 @@ dialog::backdrop { background: rgba(0, 0, 0, .75); }
 @media (min-width: 600px) {
   .results { grid-template-columns: repeat(3, 1fr); }
 }
+
+.colab-card { border: 1px solid var(--accent); }
+.colab-card b { display: block; margin-bottom: 6px; }
+.colab-card button.primary { margin: 8px 0; }
+.steps { padding-inline-start: 20px; font-size: .88rem; color: var(--muted); line-height: 1.7; }
