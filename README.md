@@ -27,6 +27,14 @@
 
 ارفع محتوى مجلد `dist` على أي استضافة HTTPS مجانية (GitHub Pages أو Netlify أو Vercel). افتح الرابط من الهاتف، ثم اختر **"إضافة إلى الشاشة الرئيسية"**.
 
+## 🎬 فيديو مجاني من الهاتف عبر Google Colab
+
+بدون كمبيوتر: افتح هذا الرابط من متصفح الهاتف (بحساب Google):
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/btar457/Ai-mation/blob/ccr-64095e7e-ed952s/colab/Ai-mation-Video.ipynb)
+
+يستخدم نموذج LTX-Video المفتوح على كرت T4 المجاني من Google: نص ← فيديو، وصورة ← فيديو.
+
 ## إعداد توكن Hugging Face (للفيديو والمحركات الإضافية)
 
 1. سجّل في [huggingface.co](https://huggingface.co) مجاناً.
