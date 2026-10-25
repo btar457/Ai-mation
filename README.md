@@ -33,7 +33,7 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/btar457/Ai-mation/blob/ccr-64095e7e-ed952s/colab/Ai-mation-Video.ipynb)
 
-يستخدم نموذج LTX-Video المفتوح على كرت T4 المجاني من Google: نص ← فيديو، وصورة ← فيديو.
+يستخدم نموذج LTX-Video 0.9.5 المفتوح على كرت T4 المجاني من Google: نص ← فيديو، وصورة ← فيديو.
 
 ## إعداد توكن Hugging Face (للفيديو والمحركات الإضافية)
 
