@@ -1,0 +1,109 @@
+أوامر Grok — حاتم الطائي، الجزء 1، النسخة الواقعية السينمائية
+
+الخطوة 1: ولّد صور الشخصيات المرجعية R1 إلى R4. صورة حاتم المرجعية جاهزة: ref_hatim.jpg.
+الخطوة 2: لكل مشهد، ارفع الصورة المرجعية المكتوبة بجانبه في Grok Imagine (تعديل صورة)، والصق أمر الصورة. إذا لم يدعم Grok الرفع مع الأمر، فولّد بالأمر وحده.
+الخطوة 3: حرّك صورة المشهد (صورة إلى فيديو) بأمر الحركة.
+الخطوة 4: سمِّ الملفات برقم المشهد (05.jpg و05.mp4)، وضعها في مجلد حاتم على Google Drive.
+اختر أعلى جودة متاحة في Grok.
+
+===== الشخصيات المرجعية =====
+R1: صورة الحاجب المرجعية
+a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch, standing tall in a vast golden Byzantine palace hall with marble columns, mosaics and shafts of light, hands behind his back, arrogant expression, full body. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+
+R2: صورة قيصر المرجعية
+the Byzantine emperor, a powerful man in his fifties with a dark beard, jeweled gold crown, purple imperial robe with gold trim, seated on a towering golden throne in an enormous Byzantine throne room with mosaics, candles and rows of armored imperial guards, stern skeptical gaze, low angle. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+
+R3: صورة ماويّة المرجعية
+a dignified Bedouin woman in a long dark embroidered dress and a black niqab showing only her dark eyes, standing inside a large black Bedouin tent at night beside a woven red curtain, a brass oil lamp casting warm golden light, full body. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+
+R4: صورة الفرس المرجعية
+a magnificent black Arabian mare with a white star blaze on her forehead, proud arched neck and flowing mane, tied with a rope to a wooden stake in front of a black Bedouin tent under a huge full moon, desert night. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+
+===== المشاهد =====
+المشهد 01: قيصر يرمي الرسالة   [المرجع: R2]
+أمر الصورة: Close-up of the Byzantine emperor, a powerful man in his fifties with a dark beard, jeweled gold crown, purple imperial robe with gold trim on his golden throne leaning forward skeptically, tossing a rolled letter onto a marble table, one eyebrow raised, candlelight, guards blurred behind. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he leans forward and tosses the letter, candle flames flicker, slow push in, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 02: قيصر يأمر الحاجب   [المرجع: R2]
+أمر الصورة: the Byzantine emperor, a powerful man in his fifties with a dark beard, jeweled gold crown, purple imperial robe with gold trim on his throne pointing forward commandingly; in the foreground seen from behind, a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch bowing deeply; a crowded golden throne room with guards and courtiers. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he points forward commandingly, the chamberlain bows deeper, candles flicker, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 03: ابتسامة الحاجب   [المرجع: R1]
+أمر الصورة: Medium close-up: a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch rising slowly from a deep bow with a sly cunning smile, golden palace light and incense smoke behind him. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he slowly lifts his head and a sly smile spreads, slow push in, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 04: موكب الحاجب في الصحراء   [المرجع: R1]
+أمر الصورة: Epic wide shot: a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch riding a camel at the head of a small caravan of guards across vast golden dunes at sunset, wind blowing sand and his crimson cloak, long shadows. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: the caravan moves steadily, sand and cloak blow in the wind, camera tracks alongside, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 05: ترحيب حاتم   [المرجع: حاتم]
+أمر الصورة: the same Bedouin chieftain from the uploaded reference photo (same face, same grey-black beard, same cream turban and brown embroidered cloak) walking toward the camera with arms opened wide in warm welcome and a kind smile, his campfire and the tribe's tents and fires behind him at night. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he walks toward the camera opening his arms in welcome, flames dance, sparks rise, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 06: الحاجب عند الجمر   [المرجع: R1]
+أمر الصورة: Inside a large black Bedouin tent at night: a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch seated on woven rugs rubbing his hands over glowing embers, eyes glancing around suspiciously, warm ember light. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he rubs his hands over the embers, eyes glancing around, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 07: حاتم يبحث بالمشعل   [المرجع: حاتم]
+أمر الصورة: the same Bedouin chieftain from the uploaded reference photo (same face, same grey-black beard, same cream turban and brown embroidered cloak) outside his tent holding up a burning torch, searching the dark empty desert with a worried face, no camels anywhere, deep blue night. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he raises the torch and turns his head searching, the flame whips in the wind, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 08: ماويّة تهمس لحاتم   [المرجع: R3]
+أمر الصورة: Inside the tent by oil-lamp light: a dignified Bedouin woman in a long dark embroidered dress and a black niqab showing only her dark eyes pulls aside a red curtain and whispers to a Bedouin chieftain in a cream turban and brown cloak, her hand on his arm, intimate worried mood. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: she leans closer and whispers, he slowly turns his head toward her, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 09: الفرس تحت القمر   [المرجع: R4]
+أمر الصورة: a magnificent black Arabian mare with a white star blaze on her forehead alone under the full moon tossing her head and lifting a front hoof, ears forward toward someone approaching, silver moonlight, no people. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: the mare tosses her head and stamps her hoof, mane blowing, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 10: حاتم يودّع الفرس   [المرجع: حاتم]
+أمر الصورة: Emotional close-up: the same Bedouin chieftain from the uploaded reference photo (same face, same grey-black beard, same cream turban and brown embroidered cloak) gently stroking the neck of a magnificent black Arabian mare with a white star blaze on her forehead, resting his forehead against her head, eyes glistening with tears, moonlight. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he strokes the mare's neck and rests his forehead on her head, tears fall, slow motion, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 11: قرار حاتم   [المرجع: حاتم]
+أمر الصورة: Close-up portrait: the same Bedouin chieftain from the uploaded reference photo (same face, same grey-black beard, same cream turban and brown embroidered cloak) lifting his head with quiet resolve, turning toward the warm glow of his tent, moonlight and firelight on his face. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he lifts his head with resolve and squares his shoulders, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 12: حاتم يقود الفرس بعيداً   [المرجع: حاتم]
+أمر الصورة: Wide shot from behind: the same Bedouin chieftain from the uploaded reference photo (same face, same grey-black beard, same cream turban and brown embroidered cloak) leading a magnificent black Arabian mare with a white star blaze on her forehead by a rope, walking slowly away into the dark desert under a huge moon, long soft shadows, melancholic. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: they walk slowly away into the night, cloak swaying, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 13: الحاجب يتذوّق الطعام   [المرجع: R1]
+أمر الصورة: Inside a Bedouin tent at night: a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch eating from a large copper platter of meat and rice, eyebrows raised in amazement, a big pot steaming over the fire. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he takes a bite and raises his eyebrows in amazement, steam rises, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 14: حاتم يصبّ الماء   [المرجع: حاتم]
+أمر الصورة: Inside the tent at night: the same Bedouin chieftain from the uploaded reference photo (same face, same grey-black beard, same cream turban and brown embroidered cloak) smiling warmly while pouring water from a brass ewer into his guest's cup, steam and firelight. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he smiles and pours water into the cup, steam rises, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 15: الحاجب يدبّر   [المرجع: R1]
+أمر الصورة: Night inside a tent: a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch lying on a rug resting on his elbow, turning toward the camera with a confident scheming smile, red ember glow on his face. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he turns his head toward the camera with a scheming smile, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 16: الوتد الفارغ   [المرجع: R4]
+أمر الصورة: Dawn in the desert: only an empty wooden stake with a loose rope hanging from it in front of a black Bedouin tent, soft pink and gold sunrise, quiet and empty, no horse. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: the rope sways in the dawn wind, sand drifts, camera tilts down, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 17: الحاجب يكشف هويته   [المرجع: R1]
+أمر الصورة: At dawn outside a black Bedouin tent: a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch adjusting his crimson cloak and raising his chin proudly, golden morning light. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he adjusts his cloak and raises his chin proudly, cloak moving in the wind, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 18: دهشة حاتم   [المرجع: حاتم]
+أمر الصورة: At dawn inside the tent: the same Bedouin chieftain from the uploaded reference photo (same face, same grey-black beard, same cream turban and brown embroidered cloak) pausing while folding a rug, straightening up in surprise, soft morning light through the tent opening. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he stops folding and straightens up in surprise, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 19: الرسالة المختومة   [المرجع: R1]
+أمر الصورة: At dawn in front of a tent: a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch breaking a red wax seal and unrolling a parchment scroll with a sly smile, golden light. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he breaks the seal and unrolls the scroll slowly, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 20: ماويّة تتجمّد   [المرجع: R3]
+أمر الصورة: Behind a woven curtain in the morning: a dignified Bedouin woman in a long dark embroidered dress and a black niqab showing only her dark eyes kneeling over a bowl of dough, her hands frozen, slowly lifting her head with alarmed eyes, soft dawn light. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: her hands stop and she slowly lifts her head, eyes widening, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 21: الذروة: وجه حاتم   [المرجع: حاتم]
+أمر الصورة: Dramatic extreme close-up of the same Bedouin chieftain from the uploaded reference photo (same face, same grey-black beard, same cream turban and brown embroidered cloak), face frozen in silent shock, mouth closed, eyes slightly widened, cold morning light. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: very slow push in on his frozen face, tension, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 22: عينا حاتم والدخان   [المرجع: حاتم]
+أمر الصورة: Extreme close-up of the eyes of the same Bedouin chieftain from the uploaded reference photo (same face, same grey-black beard, same cream turban and brown embroidered cloak) turning sideways toward the cold ashes of last night's fire, a thin thread of smoke rising in dawn light, heavy silent mood. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: his eyes slowly move sideways, smoke rises, slow push in, cinematic realistic motion, keep the same faces and clothes
