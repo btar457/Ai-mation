@@ -6,10 +6,17 @@ FF = [imageio_ffmpeg.get_ffmpeg_exe()]
 lines = {l['id']: l for l in json.load(open('lines.json'))}
 # --- timeline ---
 t = 0.0; scenes = []; placed = []
+# cold open: the climax line over Hatim's frozen face, then the story rewinds
+cur = 0.25
+for k in ['21a', '21b']:
+    a_, _ = librosa.load(f'aud/lines/{k}.wav', sr=SR)
+    placed.append({'id': k, 'who': lines[k]['who'], 'text': lines[k]['text'], 'start': round(cur, 3), 'dur': round(len(a_) / SR, 3)})
+    cur += len(a_) / SR + 0.25
+scenes.append({'n': 0, 'start': 0.0, 'dur': round(cur + 0.5, 3)}); t = cur + 0.5
 for n in range(1, 23):
     ids = sorted(k for k in lines if k.startswith(f'{n:02d}') and os.path.exists(f'aud/lines/{k}.wav'))
     start = t
-    cur = t + (0.15 if n == 1 else 0.35)
+    cur = t + (1.7 if n == 1 else 0.35)
     for k, i in zip(ids, range(99)):
         a, _ = librosa.load(f'aud/lines/{k}.wav', sr=SR)
         if i: cur += 0.3
@@ -25,12 +32,12 @@ for n in range(1, 23):
 total = t
 # --- clips: Grok videos (upscaled) + 2.5D image scenes, retimed to each scene ---
 os.makedirs('/root/hstory/public/clips', exist_ok=True)
-GROK = {5: 'r05', 8: 'r08', 10: 'r10', 11: 'r11', 14: 'r14', 18: 'r18', 21: 'r21', 22: 'r21'}
+GROK = {0: 'r21', 5: 'r05', 8: 'r08', 10: 'r10', 11: 'r11', 14: 'r14', 18: 'r18', 21: 'r21', 22: 'r21'}
 for s in scenes:
     n = s['n']; dst = f'/root/hstory/public/clips/c{n:02d}.mp4'; d = s['dur'] + 0.5
     if n in GROK:
         src, L = f'grok/up/{GROK[n]}.mp4', 6.0
-        ss = 2.0 if n == 22 else 0.0
+        ss = 2.0 if n == 22 else (1.2 if n == 0 else 0.0)
         L -= ss
     else:
         src, L, ss = f'grok/par/p{n:02d}.mp4', 8.0, 0.0
@@ -85,10 +92,11 @@ for c in rng.uniform(0, 3.5, 7):
     L = int(0.12 * SR); x = np.arange(L) / SR; f = rng.uniform(2800, 4200)
     add(np.sin(2 * np.pi * (f + 900 * np.sin(2 * np.pi * 18 * x)) * x) * np.sin(np.pi * x / x[-1]), s0 + c, 0.05)
 # reveal hit on "فرسك" + heartbeat in the held silence
-hit = [p for p in placed if p['id'] == '21a']
-if hit:
+for h0 in [p for p in placed if p['id'] == '21a']:
+    hit = [h0]
     x = np.arange(int(1.8 * SR)) / SR; f = 70 * np.exp(-x * 3) + 35
     add(np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-x * 2.2), hit[0]['start'], 0.6)
+    if h0['start'] < S[1]['start']: continue
     s0 = S[21]['start'] + S[21]['dur'] - 1.5
     for k in range(4):
         for dt, g in [(0, 1), (0.22, 0.6)]:

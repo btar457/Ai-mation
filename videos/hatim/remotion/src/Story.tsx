@@ -20,8 +20,8 @@ const AMIRI = 'Amiri';
 const p = (t: number, a: number, b: number, e = Easing.inOut(Easing.cubic)) =>
   interpolate(t, [a, b], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: e});
 
-const NIGHT_FIRE = new Set([5, 6, 7, 8, 11, 13, 14, 15]);
-const DUST = new Set([4, 16, 17, 19]);
+const NIGHT_FIRE = new Set([6, 13, 15]);
+const DUST = new Set([4, 16, 17]);
 
 // floating particles: embers rise at night by the fire, dust drifts in desert light
 const Particles: React.FC<{kind: 'ember' | 'dust'; seed: number}> = ({kind, seed}) => {
@@ -54,7 +54,7 @@ const Particles: React.FC<{kind: 'ember' | 'dust'; seed: number}> = ({kind, seed
 const SceneView: React.FC<{s: Scene}> = ({s}) => {
   const f = useCurrentFrame();
   const len = Math.round(s.dur * FPS) + XF;
-  const fadeIn = s.n === 1 ? 1 : p(f, 0, XF);
+  const fadeIn = s.n === 0 ? 1 : p(f, 0, XF);
   const zoom = 1 + 0.035 * (f / len);
   const flicker = NIGHT_FIRE.has(s.n) ? 0.1 + 0.06 * Math.sin(f * 0.9) + 0.04 * Math.sin(f * 2.3 + 1) : 0;
   return (
@@ -85,6 +85,8 @@ export const Story: React.FC = () => {
   const t = f / FPS;
   const cap = CAPS.find((c) => t >= c.s - 0.03 && t < c.e + 0.06);
   const last = SCENES[SCENES.length - 1];
+  const s1 = SCENES.find((x) => x.n === 1)!.start;
+  const rt = t - s1; // time since the story proper begins (after the cold open)
   const endT = last.start + last.dur - 2.8;
   const endO = p(t, endT, endT + 0.6);
 
@@ -102,8 +104,14 @@ export const Story: React.FC = () => {
       <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 14%, transparent 62%, rgba(0,0,0,0.55) 100%)'}} />
 
       {/* opening framing line */}
-      {t < 3.6 && (
-        <div dir="rtl" style={{position: 'absolute', top: 150, left: 0, right: 0, textAlign: 'center', opacity: Math.min(p(t, 0.2, 0.7), 1 - p(t, 3.0, 3.6)),
+      {rt > -0.2 && rt < 2.0 && (
+        <AbsoluteFill style={{background: `rgba(0,0,0,${0.75 * (1 - p(rt, 1.0, 1.9))})`, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <div dir="rtl" style={{opacity: Math.min(p(rt, -0.2, 0.3), 1 - p(rt, 1.3, 1.9)), fontFamily: AMIRI, fontWeight: 700, fontSize: 92, color: '#f3d58a',
+            textShadow: '0 4px 24px rgba(0,0,0,0.9)'}}>قبل أيامٍ…</div>
+        </AbsoluteFill>
+      )}
+      {rt > 1.6 && rt < 5.4 && (
+        <div dir="rtl" style={{position: 'absolute', top: 150, left: 0, right: 0, textAlign: 'center', opacity: Math.min(p(rt, 1.6, 2.1), 1 - p(rt, 4.8, 5.4)),
           fontFamily: AMIRI, fontWeight: 700, fontSize: 46, color: '#f3d58a', textShadow: '0 2px 12px rgba(0,0,0,0.9)'}}>
           يُروى في كتب الأدب العربي…
         </div>
