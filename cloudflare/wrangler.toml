@@ -1,0 +1,7 @@
+# نشر Worker الصور عبر Wrangler:  cd cloudflare && npx wrangler deploy
+name = "ai-mation"
+main = "worker.js"
+compatibility_date = "2025-09-01"
+
+[ai]
+binding = "AI"
