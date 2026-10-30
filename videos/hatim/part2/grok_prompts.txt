@@ -1,0 +1,59 @@
+أوامر Grok — حاتم الطائي، الجزء 2، النسخة الواقعية السينمائية
+
+الشخصيات المرجعية نفسها من الجزء 1: ref_hatim.jpg، وR1 الحاجب (ref_hajib.jpg)، وR2 قيصر، وR3 ماويّة (ref_mawiya.jpg).
+المشهد 1 يعاد من لقطة الذروة في الجزء 1، والمشهد 3 من grok_real/images/s13.jpg. لا تولّدهما.
+
+الخطوات كما في الجزء 1:
+1. ارفع الصورة المرجعية المكتوبة بجانب المشهد في Grok Imagine، والصق أمر الصورة.
+2. حرّك الصورة (صورة إلى فيديو) بأمر الحركة.
+3. سمِّ الملفات p2_رقم المشهد (p2_04.jpg وp2_04.mp4)، وضعها في مجلد حاتم على Google Drive.
+4. افحص كل مقطع: إذا ذاب وجه أو يد فأعد توليده.
+
+===== المشاهد =====
+المشهد 02: ابتسامة حاتم الحزينة   [المرجع: حاتم]
+أمر الصورة: Close-up portrait at dawn: the same Bedouin chieftain from the uploaded reference photo (same face, same grey-black beard, same cream turban and brown embroidered cloak) exhaling slowly, his shoulders relaxing, a gentle sad smile forming, cold morning light through the tent opening. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he exhales, his shoulders drop and a sad gentle smile appears, his lips move as he speaks, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 04: الرسالة تسقط   [المرجع: R1]
+أمر الصورة: Medium shot at dawn outside a black Bedouin tent: a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch frozen in shock, mouth open, the unrolled parchment scroll slipping from his fingers and falling onto the sand. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: the scroll slips from his hand and rolls on the sand, slow push in on his shocked face, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 05: ماويّة تخفض رأسها   [المرجع: R3]
+أمر الصورة: Behind a woven red curtain in soft morning light: a dignified Bedouin woman in a long dark embroidered dress and a black niqab showing only her dark eyes closing her eyes and slowly lowering her head in quiet sorrow, a bowl of dough before her. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: she closes her eyes and slowly lowers her head, the curtain sways gently, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 06: الحاجب ينظر إلى الوتد   [المرجع: R1]
+أمر الصورة: At dawn: a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch sinking slowly to sit on a woven rug in front of a black Bedouin tent, staring at an empty wooden stake with a loose rope swaying in the wind, stunned and humbled. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he sits down slowly and stares at the empty stake, the rope sways in the wind, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 07: يد حاتم على كتف الحاجب   [المرجع: حاتم]
+أمر الصورة: At dawn in front of the tent: the same Bedouin chieftain from the uploaded reference photo (same face, same grey-black beard, same cream turban and brown embroidered cloak) sitting beside a Byzantine chamberlain with a short grey beard and crimson cloak, gently placing his hand on the chamberlain's shoulder with a warm calm smile. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he places his hand on the guest's shoulder and speaks calmly, warm smile, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 08: الذروة: الحاجب ينحني   [المرجع: R1]
+أمر الصورة: Emotional close-up at dawn: a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch lifting his head with glistening eyes, placing his right hand on his chest and bowing his head in deep respect, golden sunrise light. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he lifts his eyes, places his hand on his chest and bows his head, his lips move, slow push in, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 09: عودة الإبل   [المرجع: —]
+أمر الصورة: Wide shot at midday: a large herd of camels returning across golden dunes toward a camp of black Bedouin tents, herdsmen in turbans walking beside them, golden dust in the air. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: the herd walks steadily over the dunes, dust drifts, camera tracks slowly, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 10: العطايا   [المرجع: حاتم]
+أمر الصورة: Outside the camp in warm afternoon light: the same Bedouin chieftain from the uploaded reference photo (same face, same grey-black beard, same cream turban and brown embroidered cloak) handing the ropes of several she-camels to Byzantine guards, while a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch watches in astonishment. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he hands over the ropes, the camels shift and lower their heads, the chamberlain watches amazed, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 11: الحاجب أمام قيصر   [المرجع: R2]
+أمر الصورة: In an enormous golden Byzantine throne room: a proud Byzantine chamberlain in his fifties with a short grey beard and cold narrow eyes, dark blue tunic with heavy gold embroidery, crimson cloak fastened with a large gold brooch bowing before the Byzantine emperor, a powerful man in his fifties with a dark beard, jeweled gold crown, purple imperial robe with gold trim seated on a towering golden throne, candles and guards, the emperor leaning forward to listen. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: the chamberlain bows and speaks, the emperor leans forward, candles flicker, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 12: حكم قيصر   [المرجع: R2]
+أمر الصورة: Close-up: the Byzantine emperor, a powerful man in his fifties with a dark beard, jeweled gold crown, purple imperial robe with gold trim slowly setting down a golden goblet and leaning back into his throne, thoughtful and humbled, candlelight on his face. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he sets down the goblet and leans back slowly, his lips move, slow push in, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 13: نار القِرى   [المرجع: حاتم]
+أمر الصورة: Night on a desert hilltop: the same Bedouin chieftain from the uploaded reference photo (same face, same grey-black beard, same cream turban and brown embroidered cloak) feeding a tall blazing fire with branches, sparks rising high into the starry sky, black tents and an empty wooden stake below. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: he throws branches onto the fire, flames leap and sparks rise into the sky, cloak blows in the wind, cinematic realistic motion, keep the same faces and clothes
+
+المشهد 14: النار وحدها   [المرجع: —]
+أمر الصورة: Extreme wide shot: a single bright fire burning alone on a hilltop in a vast dark desert under a sky full of stars, tiny silhouette of a man beside it, guiding travelers. Epic cinematic historical film still, photorealistic, ultra detailed, rich golden cinematic color grading, dramatic volumetric lighting, depth of field, 9:16 vertical, no text
+أمر الحركة: the flame flickers, slow pull back, stars twinkle, cinematic realistic motion, keep the same faces and clothes
