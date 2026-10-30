@@ -3,6 +3,8 @@ const KEY = "aimation.settings";
 const defaults = {
   hfToken: "",
   pollinationsKey: "",
+  cfUrl: "",
+  cfKey: "",
   translate: true,
   autoSave: true,
   fallback: true,

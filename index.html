@@ -56,6 +56,7 @@
       <label class="field">
         <span>المحرك</span>
         <select id="imgEngine">
+          <option value="cf-flux">Cloudflare FLUX — مجاني يومياً من حسابك ☁️</option>
           <option value="hf-space">FLUX Space — مجاني (حصة يومية) ⭐</option>
           <option value="ai-horde">AI Horde — مجاني بلا رصيد (قد ينتظر في الطابور)</option>
           <option value="pollinations">Pollinations — صورة كل 45 ثانية (أو بمفتاح)</option>
@@ -179,6 +180,20 @@
           <button id="setTest">اختبار التوكن</button>
         </div>
         <div class="status" id="setStatus"></div>
+      </div>
+      <div class="card">
+        <label class="field"><span>رابط Cloudflare Worker</span>
+          <input id="setCfUrl" type="url" dir="ltr" placeholder="https://ai-mation.xxxx.workers.dev" autocomplete="off" />
+        </label>
+        <label class="field"><span>مفتاح الـ Worker (APP_KEY)</span>
+          <input id="setCfKey" type="password" placeholder="الكلمة السرية التي وضعتها في الـ Worker" autocomplete="off" />
+          <small class="hint">صور مجانية كل يوم من حسابك في Cloudflare (حصة 10,000 Neuron، تتجدد 3 فجراً بتوقيت بغداد). خطوات إعداد الـ Worker في ملف README.</small>
+        </label>
+        <div class="row">
+          <button class="primary grow" id="setCfSave">حفظ</button>
+          <button id="setCfTest">اختبار الـ Worker</button>
+        </div>
+        <div class="status" id="setCfStatus"></div>
       </div>
       <div class="card">
         <label class="field"><span>مفتاح Pollinations (اختياري)</span>

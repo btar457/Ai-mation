@@ -17,6 +17,7 @@ export const STYLES = [
 ];
 
 export const IMAGE_ENGINES = {
+  "cf-flux": { label: "Cloudflare FLUX", needsWorker: true },
   "hf-space": { label: "FLUX Space", needsToken: false, space: "black-forest-labs/FLUX.1-schnell" },
   "ai-horde": { label: "AI Horde", needsToken: false },
   pollinations: { label: "Pollinations", needsToken: false },
@@ -142,6 +143,42 @@ async function pollinationsImage({ prompt, width, height, seed, pollinationsKey,
   return blob;
 }
 
+// Cloudflare Workers AI عبر Worker خاص بالمستخدم (cloudflare/worker.js)
+// حصة مجانية 10,000 Neuron يومياً، تتجدد الساعة 3 فجراً بتوقيت بغداد
+async function cfImage({ prompt, width, height, seed, cfUrl, cfKey, signal }) {
+  if (!cfUrl) {
+    const e = new Error("أضف رابط Cloudflare Worker من تبويب الإعدادات أولاً.");
+    e.code = "NO_WORKER";
+    throw e;
+  }
+  const res = await fetch(cfUrl.trim().replace(/\/+$/, ""), {
+    method: "POST",
+    signal,
+    headers: { "Content-Type": "application/json", ...(cfKey ? { "X-App-Key": cfKey } : {}) },
+    body: JSON.stringify({ prompt, width, height, seed }),
+  });
+  if (res.status === 401) throw new Error("مفتاح Cloudflare Worker غير صحيح. راجعه في الإعدادات.");
+  if (res.status === 429) throw new Error("انتهت حصة Cloudflare المجانية لهذا اليوم. تتجدد الساعة 3 فجراً بتوقيت بغداد.");
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    if (body.error === "no_ai_binding") throw new Error("الـ Worker يحتاج Workers AI binding باسم AI. راجع خطوات الإعداد.");
+    throw new Error(`Cloudflare: ${body.error || "خطأ " + res.status}${body.detail ? " — " + body.detail : ""}`);
+  }
+  const blob = await res.blob();
+  if (!blob.type.startsWith("image/")) throw new Error("Cloudflare لم يرجع صورة. أعد المحاولة.");
+  return blob;
+}
+
+export async function testWorker(cfUrl, cfKey) {
+  if (!cfUrl) throw new Error("أدخل رابط الـ Worker أولاً.");
+  const res = await fetch(cfUrl.trim().replace(/\/+$/, ""), { headers: cfKey ? { "X-App-Key": cfKey } : {} });
+  const body = await res.json().catch(() => ({}));
+  if (res.status === 401) throw new Error("المفتاح غير صحيح.");
+  if (body.error === "no_ai_binding") throw new Error("الـ Worker يعمل لكن ينقصه Workers AI binding باسم AI.");
+  if (!res.ok || !body.ok) throw new Error(`الرابط لا يستجيب كـ Worker صحيح (${res.status}).`);
+  return body;
+}
+
 // Hugging Face Spaces (ZeroGPU): حصة مجانية يومية، وتعمل بدون توكن بحصة أقل
 const spaceClients = new Map();
 async function spaceImage({ engine, prompt, width, height, seed, token }) {
@@ -252,16 +289,17 @@ async function hordeImage(args) {
   }
 }
 
-const RUNNERS = { pollinations: pollinationsImage, "hf-space": spaceImage, "ai-horde": hordeImage };
+const RUNNERS = { pollinations: pollinationsImage, "hf-space": spaceImage, "ai-horde": hordeImage, "cf-flux": cfImage };
 // ترتيب المحركات المجانية البديلة عند فشل المحرك المختار
-const FREE_FALLBACK = ["hf-space", "ai-horde", "pollinations"];
+const FREE_FALLBACK = ["cf-flux", "hf-space", "ai-horde", "pollinations"];
 
 /** يرجع { blob, engine }. إذا فشل المحرك المختار يجرب المحركات المجانية الأخرى تلقائياً. */
 export async function generateImage(opts) {
   const negative = [DEFAULT_NEGATIVE, opts.negative].filter(Boolean).join(", ");
   const args = { ...opts, negative };
   const order = [opts.engine];
-  if (opts.fallback) order.push(...FREE_FALLBACK.filter((e) => e !== opts.engine));
+  // Cloudflare يدخل قائمة البدائل فقط إذا أعد المستخدم الـ Worker
+  if (opts.fallback) order.push(...FREE_FALLBACK.filter((e) => e !== opts.engine && (e !== "cf-flux" || opts.cfUrl)));
   const errors = [];
   for (const engine of order) {
     if (engine !== opts.engine) opts.onStatus?.(`🔁 نجرب ${IMAGE_ENGINES[engine].label}...`);

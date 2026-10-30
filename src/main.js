@@ -3,7 +3,7 @@ import { Browser } from "@capacitor/browser";
 import {
   STYLES, IMAGE_ENGINES, VIDEO_MODELS,
   buildPrompt, sizeFor, randomSeed, translateToEnglish,
-  generateImage, generateVideo, testToken,
+  generateImage, generateVideo, testToken, testWorker,
 } from "./api.js";
 import { checkPrompt } from "./safety.js";
 import { loadSettings, saveSettings } from "./settings.js";
@@ -77,7 +77,10 @@ function fileBase(item) {
 }
 
 function updateBadge() {
-  $("engineBadge").textContent = settings.hfToken ? "✅ Hugging Face متصل" : "مجاني بدون توكن";
+  const parts = [];
+  if (settings.cfUrl) parts.push("☁️ Cloudflare");
+  if (settings.hfToken) parts.push("✅ Hugging Face");
+  $("engineBadge").textContent = parts.length ? parts.join(" · ") + " متصل" : "مجاني بدون توكن";
 }
 
 // ---------- التبويبات ----------
@@ -251,6 +254,10 @@ $("imgGenerate").addEventListener("click", async () => {
     toast("لا يوجد توكن، سيتم استخدام المحركات المجانية");
     engine = "hf-space";
   }
+  if (IMAGE_ENGINES[engine].needsWorker && !settings.cfUrl) {
+    toast("لم تُعِدّ Cloudflare Worker بعد، سيتم استخدام FLUX Space");
+    engine = "hf-space";
+  }
 
   btn.disabled = true;
   releaseUrls("imgResults");
@@ -291,6 +298,7 @@ $("imgGenerate").addEventListener("click", async () => {
       const genArgs = {
         engine, prompt: fullPrompt, negative, width, height,
         seed: baseSeed + i, token: settings.hfToken, pollinationsKey: settings.pollinationsKey,
+        cfUrl: settings.cfUrl, cfKey: settings.cfKey,
         fallback: settings.fallback,
         onStatus: (msg) => setStatus(status, `[${i + 1}/${count}] ${msg}`),
       };
@@ -467,6 +475,27 @@ $("setTest").addEventListener("click", async () => {
     setStatus($("setStatus"), `✅ التوكن يعمل — الحساب: ${me.name}`);
   } catch (e) {
     setStatus($("setStatus"), "❌ " + e.message, true);
+  }
+});
+$("setCfUrl").value = settings.cfUrl;
+$("setCfKey").value = settings.cfKey;
+$("setCfSave").addEventListener("click", () => {
+  settings = saveSettings({ cfUrl: $("setCfUrl").value.trim(), cfKey: $("setCfKey").value.trim() });
+  updateBadge();
+  toast("تم الحفظ");
+});
+$("setCfTest").addEventListener("click", async () => {
+  const cfUrl = $("setCfUrl").value.trim();
+  const cfKey = $("setCfKey").value.trim();
+  setStatus($("setCfStatus"), "جارٍ الاختبار...");
+  try {
+    await testWorker(cfUrl, cfKey);
+    settings = saveSettings({ cfUrl, cfKey, imgEngine: "cf-flux" });
+    $("imgEngine").value = "cf-flux";
+    updateBadge();
+    setStatus($("setCfStatus"), "✅ الـ Worker يعمل، وصار Cloudflare FLUX المحرك الافتراضي.");
+  } catch (e) {
+    setStatus($("setCfStatus"), "❌ " + e.message, true);
   }
 });
 $("setTranslate").addEventListener("change", (e) => { settings = saveSettings({ translate: e.target.checked }); });
