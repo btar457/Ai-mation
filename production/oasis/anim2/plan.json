@@ -1,0 +1,373 @@
+[
+ {
+  "id": "01_0",
+  "line": "01",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s01.jpg",
+  "prompt": "the cartoon baby camel looks around worried and lost, turning his head, sand blowing in the wind, slow camera orbit; the cartoon baby camel with the red-and-white headband talks panicked, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "01_1",
+  "line": "01",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s01.jpg",
+  "prompt": "the cartoon baby camel looks around worried and lost, turning his head, sand blowing in the wind, slow camera orbit; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.48
+ },
+ {
+  "id": "02_0",
+  "line": "02",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s01.jpg",
+  "prompt": "the cartoon baby camel looks around worried and lost, turning his head, sand blowing in the wind, slow camera orbit, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 4.83
+ },
+ {
+  "id": "03_0",
+  "line": "03",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s03.jpg",
+  "prompt": "the three friends chat happily at the oasis, palm leaves swaying, water sparkling; the cartoon baby camel with the red-and-white headband talks excited, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 4.96
+ },
+ {
+  "id": "04_0",
+  "line": "04",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s03_shaheen.jpg",
+  "prompt": "the cartoon falcon with the teal satchel talks confident, his beak opening and closing clearly as he speaks, wings gesturing, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "04_1",
+  "line": "04",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s03.jpg",
+  "prompt": "the three friends chat happily at the oasis, palm leaves swaying, water sparkling; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.0
+ },
+ {
+  "id": "05_0",
+  "line": "05",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s03_hasat.jpg",
+  "prompt": "the cartoon old tortoise with round glasses talks very slow and slowly, her mouth opening and closing as she speaks, gentle hand gestures, blinking behind her glasses, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "05_1",
+  "line": "05",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s03.jpg",
+  "prompt": "the three friends chat happily at the oasis, palm leaves swaying, water sparkling; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 3.25
+ },
+ {
+  "id": "06_0",
+  "line": "06",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s04.jpg",
+  "prompt": "the three friends do morning warm-up exercises together, stretching up, rolling shoulders, jumping in place; the cartoon old tortoise with round glasses talks warm and slowly, her mouth opening and closing as she speaks, gentle hand gestures, blinking behind her glasses, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 3.69
+ },
+ {
+  "id": "07_0",
+  "line": "07",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s04_hasat.jpg",
+  "prompt": "the cartoon old tortoise with round glasses talks encouraging and slowly, her mouth opening and closing as she speaks, gentle hand gestures, blinking behind her glasses, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "07_1",
+  "line": "07",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s04.jpg",
+  "prompt": "the three friends do morning warm-up exercises together, stretching up, rolling shoulders, jumping in place; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.0
+ },
+ {
+  "id": "08_0",
+  "line": "08",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s04_hasat.jpg",
+  "prompt": "the cartoon old tortoise with round glasses talks rhythmic and slowly, her mouth opening and closing as she speaks, gentle hand gestures, blinking behind her glasses, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "08_1",
+  "line": "08",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s04.jpg",
+  "prompt": "the three friends do morning warm-up exercises together, stretching up, rolling shoulders, jumping in place; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.89
+ },
+ {
+  "id": "09_0",
+  "line": "09",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s04_rahhal.jpg",
+  "prompt": "the cartoon baby camel with the red-and-white headband talks shouting happily, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "09_1",
+  "line": "09",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s04.jpg",
+  "prompt": "the three friends do morning warm-up exercises together, stretching up, rolling shoulders, jumping in place; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.0
+ },
+ {
+  "id": "10_0",
+  "line": "10",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s04_hasat.jpg",
+  "prompt": "the cartoon old tortoise with round glasses talks slow and slowly, her mouth opening and closing as she speaks, gentle hand gestures, blinking behind her glasses, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "10_1",
+  "line": "10",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s04.jpg",
+  "prompt": "the three friends do morning warm-up exercises together, stretching up, rolling shoulders, jumping in place; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.0
+ },
+ {
+  "id": "11_0",
+  "line": "11",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s04_rahhal.jpg",
+  "prompt": "the cartoon baby camel with the red-and-white headband talks impatient, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.43
+ },
+ {
+  "id": "12_0",
+  "line": "12",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s04_hasat.jpg",
+  "prompt": "the cartoon old tortoise with round glasses talks wise and slowly, her mouth opening and closing as she speaks, gentle hand gestures, blinking behind her glasses, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "12_1",
+  "line": "12",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s04.jpg",
+  "prompt": "the three friends do morning warm-up exercises together, stretching up, rolling shoulders, jumping in place; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 3.1
+ },
+ {
+  "id": "13_0",
+  "line": "13",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s05.jpg",
+  "prompt": "the cartoon falcon flies and dives fast across the blue sky over the dunes, wings flapping strongly; the cartoon falcon with the teal satchel talks proud, his beak opening and closing clearly as he speaks, wings gesturing, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "13_1",
+  "line": "13",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s05.jpg",
+  "prompt": "the cartoon falcon flies and dives fast across the blue sky over the dunes, wings flapping strongly; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 4.28
+ },
+ {
+  "id": "14_0",
+  "line": "14",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s06.jpg",
+  "prompt": "the three friends get ready at the start line, leaning forward eagerly; the cartoon baby camel with the red-and-white headband talks proud, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.69
+ },
+ {
+  "id": "15_0",
+  "line": "15",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s06_hasat.jpg",
+  "prompt": "the cartoon old tortoise with round glasses talks caring and slowly, her mouth opening and closing as she speaks, gentle hand gestures, blinking behind her glasses, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "15_1",
+  "line": "15",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s06.jpg",
+  "prompt": "the three friends get ready at the start line, leaning forward eagerly; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.0
+ },
+ {
+  "id": "16_0",
+  "line": "16",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s06_rahhal.jpg",
+  "prompt": "the cartoon baby camel with the red-and-white headband talks counting down, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 4.2
+ },
+ {
+  "id": "17_0",
+  "line": "17",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s07.jpg",
+  "prompt": "the cartoon baby camel runs fast across the sand dunes, legs galloping, sand kicking up, camera tracking alongside; the cartoon baby camel with the red-and-white headband talks running, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "17_1",
+  "line": "17",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s07.jpg",
+  "prompt": "the cartoon baby camel runs fast across the sand dunes, legs galloping, sand kicking up, camera tracking alongside; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.0
+ },
+ {
+  "id": "18_0",
+  "line": "18",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s07.jpg",
+  "prompt": "the cartoon baby camel runs fast across the sand dunes, legs galloping, sand kicking up, camera tracking alongside; the cartoon baby camel with the red-and-white headband talks sly, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.73
+ },
+ {
+  "id": "19_0",
+  "line": "19",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s08.jpg",
+  "prompt": "strong sandstorm, sand swirling around the cartoon baby camel, he squeezes his eyes shut and lowers his head, scarf flapping; the cartoon baby camel with the red-and-white headband talks squinting against the wind, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "19_1",
+  "line": "19",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s08.jpg",
+  "prompt": "strong sandstorm, sand swirling around the cartoon baby camel, he squeezes his eyes shut and lowers his head, scarf flapping; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 3.19
+ },
+ {
+  "id": "20_0",
+  "line": "20",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s09.jpg",
+  "prompt": "the cartoon baby camel sits sadly on the sand and looks at the camera, ears drooping, gentle breathing; the cartoon baby camel with the red-and-white headband talks sad, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "20_1",
+  "line": "20",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s09.jpg",
+  "prompt": "the cartoon baby camel sits sadly on the sand and looks at the camera, ears drooping, gentle breathing; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.26
+ },
+ {
+  "id": "21_0",
+  "line": "21",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s10.jpg",
+  "prompt": "the falcon and the camel talk in the desert, looking up at the bright sun; the cartoon falcon with the teal satchel talks calling from far away, his beak opening and closing clearly as he speaks, wings gesturing, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.53
+ },
+ {
+  "id": "22_0",
+  "line": "22",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s10_shaheen.jpg",
+  "prompt": "the cartoon falcon with the teal satchel talks calm, his beak opening and closing clearly as he speaks, wings gesturing, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "22_1",
+  "line": "22",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s10.jpg",
+  "prompt": "the falcon and the camel talk in the desert, looking up at the bright sun; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 3.1
+ },
+ {
+  "id": "23_0",
+  "line": "23",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s10_shaheen.jpg",
+  "prompt": "the cartoon falcon with the teal satchel talks warm, his beak opening and closing clearly as he speaks, wings gesturing, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "23_1",
+  "line": "23",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s10.jpg",
+  "prompt": "the falcon and the camel talk in the desert, looking up at the bright sun; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.0
+ },
+ {
+  "id": "24_0",
+  "line": "24",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s10_rahhal.jpg",
+  "prompt": "the cartoon baby camel with the red-and-white headband talks realizing, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 3.17
+ },
+ {
+  "id": "25_0",
+  "line": "25",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s10_shaheen.jpg",
+  "prompt": "the cartoon falcon with the teal satchel talks encouraging, his beak opening and closing clearly as he speaks, wings gesturing, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 3.27
+ },
+ {
+  "id": "26_0",
+  "line": "26",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s11b.jpg",
+  "prompt": "the camel and the falcon look surprised, eyes wide, mouths open; the cartoon baby camel with the red-and-white headband talks shocked, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 3.17
+ },
+ {
+  "id": "28_0",
+  "line": "28",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s11b.jpg",
+  "prompt": "the camel and the falcon look surprised, eyes wide, mouths open; the cartoon baby camel with the red-and-white headband talks ashamed, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.91
+ },
+ {
+  "id": "27_0",
+  "line": "27",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s11.jpg",
+  "prompt": "the old tortoise sits smiling at the red rock and waves her hand warmly; the cartoon old tortoise with round glasses talks smiling and slowly, her mouth opening and closing as she speaks, gentle hand gestures, blinking behind her glasses, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 4.29
+ },
+ {
+  "id": "29_0",
+  "line": "29",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s11.jpg",
+  "prompt": "the old tortoise sits smiling at the red rock and waves her hand warmly; the cartoon old tortoise with round glasses talks loving and slowly, her mouth opening and closing as she speaks, gentle hand gestures, blinking behind her glasses, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "29_1",
+  "line": "29",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s11.jpg",
+  "prompt": "the old tortoise sits smiling at the red rock and waves her hand warmly; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.75
+ },
+ {
+  "id": "30_0",
+  "line": "30",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s12.jpg",
+  "prompt": "the three friends drink water from the spring and smile, water rippling; the cartoon old tortoise with round glasses talks gentle and slowly, her mouth opening and closing as she speaks, gentle hand gestures, blinking behind her glasses, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 3.5
+ },
+ {
+  "id": "31_0",
+  "line": "31",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s12_rahhal.jpg",
+  "prompt": "the cartoon baby camel with the red-and-white headband talks cheerful, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 5.0
+ },
+ {
+  "id": "31_1",
+  "line": "31",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s12.jpg",
+  "prompt": "the three friends drink water from the spring and smile, water rippling; the friends listen and react with expressive faces, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.0
+ },
+ {
+  "id": "32_0",
+  "line": "32",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s13.jpg",
+  "prompt": "the three friends stand together at sunset, swaying happily, warm light; the cartoon falcon with the teal satchel talks cheerful, his beak opening and closing clearly as he speaks, wings gesturing, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 3.25
+ },
+ {
+  "id": "33_0",
+  "line": "33",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s13_rahhal.jpg",
+  "prompt": "the cartoon baby camel with the red-and-white headband talks cheerful, his mouth opening and closing clearly as he speaks, lively head and neck movement, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.0
+ },
+ {
+  "id": "34_0",
+  "line": "34",
+  "src": "/tmp/claude-0/-home-user-Ai-mation/2bd9efd6-c97a-5f39-86d7-33d600586032/scratchpad/anim2/in/s13_hasat.jpg",
+  "prompt": "the cartoon old tortoise with round glasses talks soft and slowly, her mouth opening and closing as she speaks, gentle hand gestures, blinking behind her glasses, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 2.45
+ },
+ {
+  "id": "35_0",
+  "line": "35",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s14.jpg",
+  "prompt": "the cartoon falcon on a palm branch at night looks up amazed at a glowing golden shape twinkling among the stars, stars twinkling; the cartoon falcon with the teal satchel talks amazed, his beak opening and closing clearly as he speaks, wings gesturing, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 3.63
+ },
+ {
+  "id": "36_0",
+  "line": "36",
+  "src": "/home/user/Ai-mation/docs/oasis-team/ep01/s14.jpg",
+  "prompt": "the cartoon falcon on a palm branch at night looks up amazed at a glowing golden shape twinkling among the stars, stars twinkling, smooth Pixar-style 3D animation, stable characters, natural motion",
+  "dur": 4.52
+ }
+]
