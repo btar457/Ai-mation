@@ -77,3 +77,14 @@ calm warm smile, plain light green background, + قالب الأسلوب
 3. كل مشهد لاحق يبدأ من بطاقة الشخصية نفسها.
 
 النماذج المقترحة: Qwen-Image على Hugging Face لأنه الأقوى في الأسلوب الكرتوني، أو FLUX klein عبر Worker الخاص بك في Cloudflare.
+
+## الصور المرجعية المعتمدة (31 أكتوبر 2026)
+
+| الملف | المصدر |
+|---|---|
+| `refs/team.png` | Qwen-Image، 16:9، seed 314، برومبت الفريق بعد التصحيح |
+| `refs/rahhal.png` · `refs/shaheen.png` · `refs/hasat.png` | FLUX.1 Kontext Dev من قصّ صورة الفريق، seed 2026 |
+
+تصحيحات لازمة في برومبت الفريق: "clearly a camel with a long curved neck, long thin legs, one round hump"، وإلا خرج رحّال كخروف. و"pointing with its wing feathers, bird wings only"، وإلا أشار شاهين بإصبع بشري. ووجه حَصاة يحتاج "olive-green skin, not white".
+
+كل مشهد قادم يبدأ من هذه الملفات عبر Kontext، لا من الصفر.
