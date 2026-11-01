@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>كنز البغدادي</title>
+<style>
+@font-face{font-family:Amiri;font-weight:700;src:url(assets/fonts/amiri-arabic-700-normal.woff2) format("woff2")}
+@font-face{font-family:Tajawal;font-weight:500;src:url(assets/fonts/tajawal-arabic-500-normal.woff2) format("woff2")}
+@font-face{font-family:Tajawal;font-weight:800;src:url(assets/fonts/tajawal-arabic-800-normal.woff2) format("woff2")}
+@font-face{font-family:Ruqaa;font-weight:700;src:url(assets/fonts/aref-ruqaa-arabic-700-normal.woff2) format("woff2")}
+:root{--gold:#ffc46b;--cream:#fff4e0}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#05080a}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:#05080a}
+.shot{position:absolute;inset:0;opacity:0;overflow:hidden}
+.shot img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 50%}
+#shade{position:absolute;inset:0;pointer-events:none;z-index:50;
+  background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 18%,rgba(0,0,0,0) 52%,rgba(0,0,0,.55) 68%,rgba(0,0,0,.75) 100%)}
+#flash{position:absolute;inset:0;z-index:51;background:#fff;opacity:0;mix-blend-mode:screen}
+#label{position:absolute;z-index:60;right:60px;top:196px;font:700 42px/1 Ruqaa;color:var(--cream);opacity:.9;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+#cap{position:absolute;z-index:60;left:60px;width:880px;top:1250px;text-align:center;font:800 76px/1.25 Tajawal;color:#fff;
+  text-shadow:0 0 22px rgba(0,0,0,.95),0 5px 6px rgba(0,0,0,.9);-webkit-text-stroke:3px rgba(0,0,0,.6);paint-order:stroke fill}
+#cap.w{color:var(--gold)}
+#who{position:absolute;z-index:60;left:60px;width:880px;top:1196px;text-align:center;font:500 34px/1 Tajawal;color:var(--gold);opacity:0;text-shadow:0 2px 10px #000}
+#tag{position:absolute;z-index:60;right:60px;top:270px;font:500 34px/1.3 Tajawal;color:#1a1208;background:var(--gold);padding:12px 20px 10px;opacity:0}
+#hook{position:absolute;z-index:60;right:60px;top:300px;width:960px;text-align:right;font:700 96px/1.3 Amiri;color:var(--cream);text-shadow:0 6px 30px rgba(0,0,0,.95),0 2px 4px #000}
+#hook b{color:var(--gold);font-weight:700}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="shots"></div>
+  <div id="shade"></div>
+  <div id="flash"></div>
+  <div id="label">حكاية من ألف ليلة وليلة</div>
+  <div id="hook">وجدَ الكنزَ تحت بيته…<br><b>بعد أن سُجن في مصر!</b></div>
+  <div id="tag">ألهمت هذه الحكاية رواية «الخيميائي»</div>
+  <div id="who">الوالي</div>
+  <div id="cap"></div>
+</div>
+<script src="assets/gsap.min.js"></script>
+<script>
+const DUR = 43.9;
+// [image, start, end, fromScale, toScale, fromX%, toX%, fromY%, toY%]
+const SHOTS = [
+ ["H1", 0.00, 3.20, 1.00, 1.10, 0, -2, 0, 2],
+ ["J",  3.20, 5.00, 1.12, 1.02, 0, 0, -2, 1],
+ ["C",  5.00, 6.44, 1.02, 1.12, 2, -2, 0, 0],
+ ["P",  6.44, 7.68, 1.16, 1.04, 0, 0, 0, 0],
+ ["R",  7.68, 9.00, 1.04, 1.12, -2, 2, 0, 0],
+ ["X",  9.00, 10.30, 1.12, 1.02, 0, 0, 2, -1],
+ ["D", 10.30, 14.34, 1.02, 1.16, 0, 0, 0, -2],
+ ["J", 14.34, 15.48, 1.06, 1.16, 3, 0, 0, 0],
+ ["C", 15.48, 18.02, 1.14, 1.02, -2, 2, 0, 0],
+ ["T", 18.02, 21.16, 1.02, 1.14, 0, 0, 2, -2],
+ ["G", 21.16, 23.24, 1.14, 1.04, 0, 0, 0, 0],
+ ["P", 23.24, 24.88, 1.02, 1.10, 0, 0, -1, 1],
+ ["W", 24.88, 26.66, 1.02, 1.12, 0, 0, 0, 2],
+ ["K", 26.66, 30.02, 1.10, 1.02, -2, 2, 0, 0],
+ ["L", 30.02, 33.60, 1.02, 1.12, 0, 0, 0, 0],
+ ["H2",33.60, 37.64, 1.00, 1.22, 0, 0, 0, 6],
+ ["F", 37.64, 40.76, 1.04, 1.10, 0, 0, 0, 0],
+ ["H2",40.76, 41.94, 1.22, 1.30, 0, 0, 6, 8],
+ ["H1",41.94, DUR,  0.94, 1.00, 2, 0, -2, 0],
+];
+const CAP = [
+ ["هذا الرجل",0,.62],["وجدَ كنزاً",.62,1.56],["مدفوناً تحتَ بيتِه",1.56,2.66],["في بغداد",2.66,3.2],
+ ["لكنَّه لم يجدْه…",3.2,4.68],["إلّا بعدَ أن",4.68,5.52],["سافرَ إلى مصر",5.52,6.44],["وضُرِب…",6.44,6.88],["وسُجِن!",6.88,7.68],
+ ["كان تاجراً غنيّاً",7.68,8.98],["فخسرَ كلَّ شيء",8.98,10.3],["وفي ليلةٍ",10.3,10.96],["جاءه هاتفٌ",10.96,11.9],["في المنام:",11.9,12.46],
+ ["رزقُك في مصر…",12.46,13.52],["فاذهبْ إليه",13.52,14.34],["مشى شهراً كاملاً",14.34,15.48],["ووصلَ القاهرةَ ليلاً",15.48,17.0],
+ ["فنامَ في المسجد",17.0,18.02],["وفي تلك الليلة",18.02,19.16],["دخلَ لصوصٌ بيتاً",19.16,20.28],["بجوارِ المسجد…",20.28,21.16],
+ ["فجاء الحرسُ",21.16,22.0],["وقبضوا عليه هو!",22.0,23.24],["ضربَه الوالي",23.24,24.26],["وسألَه:",24.26,24.88],
+ ["إنت منين؟",24.88,25.74,1],["وإيه اللي جابك مصر؟",25.74,26.66,1],
+ ["قال: من بغداد…",26.66,27.82],["رأيتُ في المنام",27.82,28.8],["أنَّ رزقي بمصر",28.8,30.02],
+ ["يا قليل العقل!",30.02,31.92,1],["أنا شُفت في المنام",31.92,33.02,1],["تلات مرّات:",33.02,33.64,1],["بيت في بغداد",33.64,34.64,1],
+ ["في حوشه جنينة",34.64,35.52,1],["وتحت الفسقيّة كنز…",35.52,36.7,1],["وما صدّقتش!",36.7,37.64,1],
+ ["ولم يكن الوالي يعلم…",37.64,39.2],["أنَّه يصفُ",39.2,40.08],["بيتَه هو.",40.08,40.76],
+ ["عادَ إلى بغداد",40.76,41.94],["وحفرَ تحتَ الفسقيّة…",41.94,43.6],
+];
+const tl = gsap.timeline({paused:true});
+const box = document.getElementById("shots");
+SHOTS.forEach(([k,a,b,s0,s1,x0,x1,y0,y1], i) => {
+  const d = document.createElement("div"); d.className = "shot";
+  const im = document.createElement("img"); im.src = `assets/img/${k}.jpg`; d.appendChild(im); box.appendChild(d);
+  const fade = i === 0 ? 0 : 0.12;
+  tl.set(d, {opacity:0, zIndex:i}, 0);
+  if (i === 0) tl.set(d, {opacity:1}, 0); else tl.to(d, {opacity:1, duration:fade, ease:"none"}, a - fade);
+  tl.fromTo(im, {scale:s0, xPercent:x0, yPercent:y0}, {scale:s1, xPercent:x1, yPercent:y1, duration:b - a + 0.2, ease:"none"}, a - fade);
+  if (i < SHOTS.length - 1) tl.set(d, {opacity:0}, b + 0.15);
+});
+// punch-in on the twist "بيتَه هو"
+tl.fromTo("#flash", {opacity:0}, {opacity:.35, duration:.06, yoyo:true, repeat:1}, 40.06);
+// hook title: visible from frame 0, leaves when the backstory starts
+tl.set('#hook', {opacity:1}, 0);
+tl.to('#hook', {opacity:0, duration:.25}, 7.45);
+// labels
+tl.to("#tag", {opacity:1, duration:.3}, 41.0);
+const cap = document.getElementById("cap"), who = document.getElementById("who");
+function setCap(t){
+  const c = CAP.find(([,a,b]) => t >= a - 0.04 && t < b);
+  cap.textContent = c ? c[0] : "";
+  cap.className = c && c[3] ? "w" : "";
+  who.style.opacity = c && c[3] ? 1 : 0;
+  cap.style.fontSize = c && c[0] === "بيتَه هو." ? "110px" : "";
+  cap.style.color = c && c[0] === "بيتَه هو." ? "var(--gold)" : "";
+}
+tl.set({}, {}, DUR);
+tl.seek(DUR, false);
+window.DUR = DUR;
+window.seek = t => { tl.seek(Math.max(t, .001), false); setCap(t); };
+window.ready = document.fonts.ready.then(() => Promise.all([...document.images].map(i => i.decode().catch(() => 0))));
+seek(0);
+</script>
+</body>
+</html>
