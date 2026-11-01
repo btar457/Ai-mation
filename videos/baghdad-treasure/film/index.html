@@ -91,7 +91,8 @@ SHOTS.forEach(([k,a,b,s0,s1,x0,x1,y0,y1], i) => {
 // punch-in on the twist "بيتَه هو"
 tl.fromTo("#flash", {opacity:0}, {opacity:.35, duration:.06, yoyo:true, repeat:1}, 40.06);
 // hook title: visible from frame 0, leaves when the backstory starts
-tl.set('#hook', {opacity:1}, 0);
+tl.set("#hook", {opacity:1}, 0);
+tl.fromTo("#hook", {scale:1.08, transformOrigin:"100% 0%"}, {scale:1, duration:.5, ease:"power2.out"}, 0);
 tl.to('#hook', {opacity:0, duration:.25}, 7.45);
 // labels
 tl.to("#tag", {opacity:1, duration:.3}, 41.0);
