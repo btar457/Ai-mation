@@ -146,6 +146,10 @@ for si, s in enumerate(SHOTS):
             if os.path.exists(f"{LIP}/clips/lc_{l}.mp4"):
                 srcs = [f"{LIP}/clips/lc_{l}.mp4"]; k = 1
                 while os.path.exists(f"{LIP}/clips/lc_{l}_{k}.mp4"): srcs.append(f"{LIP}/clips/lc_{l}_{k}.mp4"); k += 1
+                if k == 1 and os.path.exists(f"{LIP}/flap/{l}_r.mp4") and sum(dur(x) for x in srcs) < LD[l] - 0.3:
+                    srcs.append(f"{LIP}/flap/{l}_r.mp4")
+            elif os.path.exists(f"{LIP}/flap/{l}.mp4") and not os.path.exists(f"{LIP}/sh/{l}_0.mp4"):
+                srcs = [f"{LIP}/flap/{l}.mp4"]
             else:
                 k = 0
                 while os.path.exists(f"{LIP}/sh/{l}_{k}.mp4"): srcs.append(f"{LIP}/sh/{l}_{k}.mp4"); k += 1
