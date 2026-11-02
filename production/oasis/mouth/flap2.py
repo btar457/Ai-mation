@@ -14,7 +14,7 @@ RIGS = {
  "r14": dict(img=f"{L}/crops/14.jpg", curve=[(1175,432),(1220,458),(1265,478),(1310,486)], jaw=44, maxd=28, eye=(1080,362,36,34)),
  "r19": dict(img=f"{L}/crops/19.jpg", curve=[(858,294),(900,318),(942,332),(982,336)], jaw=40, maxd=26, eye=(764,234,36,34)),
  "r20": dict(img=f"{L}/crops/20.jpg", curve=[(787,263),(840,300),(895,322),(950,326)], jaw=40, maxd=26, eye=(720,204,32,34)),
- "r24": dict(img=f"{L}/crops/24.jpg", curve=[(870,353),(935,378),(975,388),(1035,378)], jaw=36, maxd=22, eye=(824,320,26,26)),
+ "r24": dict(search=7, img=f"{L}/crops/24.jpg", curve=[(870,353),(935,378),(975,388),(1035,378)], jaw=36, maxd=22, eye=(824,320,26,26)),
  "r26": dict(img=f"{L}/crops/26.jpg", curve=[(715,343),(780,395),(835,423),(900,418)], jaw=42, maxd=26, eye=(640,308,34,34)),
  "r31": dict(img=f"{L}/crops/31.jpg", curve=[(875,393),(915,420),(960,437),(1008,444)], jaw=40, maxd=26, eye=(770,328,30,30)),
  "r33": dict(img=f"{L}/crops/33.jpg", curve=[(895,238),(965,275),(1010,295),(1100,291)], jaw=50, maxd=32, eye=(790,164,40,40)),
@@ -24,15 +24,15 @@ RIGS = {
  "h27": dict(img=f"{L}/crops/27.jpg", curve=[(830,238),(865,255),(905,258),(945,245)], jaw=30, maxd=22, eye=None),
  "h30": dict(img=f"{L}/crops/30.jpg", curve=[(633,431),(665,446),(705,449),(745,436)], jaw=28, maxd=20, eye=None),
  "h34": dict(img=f"{L}/crops/34.jpg", curve=[(430,288),(490,320),(570,325),(640,295)], jaw=40, maxd=28, eye=None),
- "s23": dict(img=f"{L}/sh/crop_23.jpg", curve=[(730,383),(775,393),(820,393),(850,383)], jaw=30, maxd=16, eye=None),
- "s32": dict(img=f"{L}/sh/crop_32.jpg", curve=[(635,263),(705,273),(775,268),(825,248)], jaw=60, maxd=22, eye=None),
+ "s23": dict(search=5, img=f"{L}/sh/crop_23.jpg", curve=[(730,383),(775,393),(820,393),(850,383)], jaw=30, maxd=16, eye=None),
+ "s32": dict(search=5, img=f"{L}/sh/crop_32.jpg", curve=[(668,280),(705,290),(745,292),(790,284)], jaw=60, maxd=22, eye=None),
 }
 # line -> (rig, start second in the line audio, punch-in zoom)
 JOBS = {
  "11": ("r09", 0, 1.0), "14": ("r14", 0, 1.0), "16": ("r14", 0, 1.08), "19": ("r19", 0, 1.0), "20": ("r20", 0, 1.0),
  "24": ("r24", 0, 1.0), "26": ("r26", 0, 1.0), "28": ("r26", 0, 1.08), "31": ("r31", 0, 1.0), "33": ("r33", 0, 1.0),
  "12": ("h06", 0, 1.08), "15": ("h15", 0, 1.0), "27": ("h27", 0, 1.0), "29": ("h27", 0, 1.08), "30": ("h30", 0, 1.0), "34": ("h34", 0, 1.0),
- "23": ("s23", 0, 1.0), "25": ("s23", 0, 1.08), "32": ("s32", 0, 1.0),
+ "23": ("s23", 0, 1.0), "25": ("s23", 0, 1.08),
  # remainders after a LongCat clip that stopped at 5 s
  "01_r": ("r01", 5.0, 1.12), "09_r": ("r09", 5.0, 1.12), "05_r": ("h05", 5.0, 1.12), "08_r": ("h06", 5.0, 1.12),
 }
@@ -47,26 +47,45 @@ def envelope(wav, start):
     lvl = np.clip(rms / (ref + 1e-6), 0, 1); lvl = np.where(lvl < 0.12, 0, lvl)
     return np.round(lvl * 3) / 3
 
+def snap(rig, base):
+    """Find the drawn mouth line (darkest pixel per column near the rig curve); return xs, line ys, line thickness."""
+    C = rig["curve"]; W, H = base.size
+    g = np.asarray(base.convert("L")).astype(np.float32)
+    g = (g + np.roll(g, 1, 1) + np.roll(g, -1, 1)) / 3
+    xs = np.arange(int(C[0][0]), min(W - 1, int(C[-1][0])) + 1)
+    yc = np.interp(xs, [p[0] for p in C], [p[1] for p in C]).astype(int)
+    R = rig.get("search", 22); ys = []; th = []
+    for x, y in zip(xs, yc):
+        lo, hi = max(0, y - R), min(H - 1, y + R)
+        col = g[lo:hi, x]; k = int(np.argmin(col)); ys.append(lo + k)
+        thr = col[k] + 35; t = 1
+        while k + t < len(col) and col[k + t] < thr and t < 10: t += 1
+        th.append(t)
+    ys = np.array(ys, dtype=float)
+    ys = np.array([np.median(ys[max(0, i-6):i+7]) for i in range(len(ys))])      # smooth
+    ys = np.convolve(np.pad(ys, 4, mode="edge"), np.ones(9)/9, mode="valid")
+    return xs, ys.astype(int), int(np.median(th)) + 1
+
 def frame(rig, base, jaw_img, jaw_mask, q, i, punch):
     W, H = base.size; C = rig["curve"]; d = q * rig["maxd"]
     arr = np.asarray(base).copy()
     if d > 0.5:
-        xs = np.arange(int(C[0][0]), int(C[-1][0]) + 1)
-        ys = np.interp(xs, [p[0] for p in C], [p[1] for p in C])
+        xs, ys, th = rig["_snap"]
         t = (xs - xs[0]) / max(1, xs[-1] - xs[0])
         off = (d * np.sin(np.pi * t) ** 0.8).astype(int)
         J = rig["jaw"]; src = np.asarray(jaw_img)
-        for x, y, o, tt in zip(xs, ys.astype(int), off, t):
-            if o <= 0 or x >= W: continue
-            y2 = min(H, y + J + o)
-            seg = src[y:y + J, x].copy()                      # lower jaw column, moved down
-            n = min(len(seg), H - (y + o))
-            if n > 0: arr[y + o:y + o + n, x] = seg[:n]
-            col = np.array([70, 22, 26], dtype=np.uint8)
-            arr[y:y + o, x] = col                               # mouth interior
-            if 0.28 < tt < 0.72 and o > 4:                      # tongue in the middle
-                tl = max(1, int(o * 0.45)); arr[y + o - tl:y + o, x] = (214, 92, 104)
-        fr = Image.fromarray(arr).filter(ImageFilter.SMOOTH) if False else Image.fromarray(arr)
+        for x, y, o, tt in zip(xs, ys, off, t):
+            if o <= 0: continue
+            top = y - th // 2                                   # opening starts on the drawn line itself
+            seg = src[top + th:top + th + J, x].copy()          # lower jaw below the line (line not duplicated)
+            dst = top + th + o
+            n = min(len(seg), H - dst)
+            if n > 0: arr[dst:dst + n, x] = seg[:n]
+            arr[top:top + th + o, x] = (60, 18, 22)             # mouth interior replaces the old line
+            if 0.28 < tt < 0.72 and o > 4:
+                tl = max(1, int(o * 0.45)); arr[top + th + o - tl:top + th + o, x] = (214, 92, 104)
+            arr[top + th + o:top + th + o + 2, x] = (40, 12, 14)  # lower lip edge
+        fr = Image.fromarray(arr)
     else:
         fr = base.copy()
     dr = ImageDraw.Draw(fr)
@@ -84,12 +103,13 @@ def prep(rig):
     base = Image.open(rig["img"]).convert("RGB"); W, H = base.size; C = rig["curve"]
     poly = C + [(x, y + rig["jaw"]) for x, y in C[::-1]]
     m = Image.new("L", (W, H), 0); ImageDraw.Draw(m).polygon(poly, fill=255)
+    rig["_snap"] = snap(rig, base)
     return base, base.copy(), m.filter(ImageFilter.GaussianBlur(1.2))
 
 if sys.argv[1] == "check":
     tiles = []
     for name, rig in RIGS.items():
-        base, ji, jm = prep(rig); fr = frame(rig, base, ji, jm, 1.0, 5, 1.0)
+        base, ji, jm = prep(rig); fr = frame(rig, base, ji, jm, 0.67, 5, 1.0)
         x0 = max(0, rig["curve"][0][0]-220); y0 = max(0, rig["curve"][0][1]-170)
         t = fr.crop((x0, y0, x0+440, y0+300)).resize((330, 225)); ImageDraw.Draw(t).text((4,4), name, fill="yellow"); tiles.append(t)
     s = Image.new("RGB", (330*6, 225*3))

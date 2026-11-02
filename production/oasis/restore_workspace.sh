@@ -18,7 +18,7 @@ cp "$P"/scripts/build.py "$P"/scripts/build2.py "$P"/scripts/build3.py "$SC"/edi
 cp "$P"/tts/word_times.json "$SC"/tts/full/
 cp "$P"/lip/clips/*.mp4 "$SC"/lip/clips/; cp "$P"/lip/sh/* "$SC"/lip/sh/; cp "$P"/lip/crops/*.jpg "$SC"/lip/crops/
 cp "$P"/lip/flap/*.mp4 "$SC"/lip/flap/; cp "$P"/mouth/*.py "$SC"/mouth/
-cp "$P"/scripts/jobs.py "$P"/scripts/shaheen.py "$P"/scripts/lc.py "$SC"/lip/
+cp "$P"/scripts/jobs.py "$P"/scripts/shaheen.py "$P"/scripts/lc.py "$P"/scripts/ex.py "$SC"/lip/; cp "$P"/scripts/after_quota.sh "$SC"/
 # المسار القديم مكتوب داخل السكربتات، فنستبدله بالجديد
 grep -rl "$OLD" "$SC" --include=*.py | xargs -r sed -i "s#$OLD#$SC#g"
 pip install -q gradio_client faster-whisper praat-parselmouth >/dev/null 2>&1 || true

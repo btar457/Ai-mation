@@ -156,7 +156,11 @@ for si, s in enumerate(SHOTS):
                 if not srcs:
                     k = 0
                     while os.path.exists(f"{CL}/{l}_{k}.mp4"): srcs.append(f"{CL}/{l}_{k}.mp4"); k += 1
-            got = 0.0
+            if os.path.exists(f"{LIP}/ex/{l}.mp4") and srcs:
+                head = min(1.2, dur(srcs[0])); p = f"{OUT}/seg/{si:02d}_c{i}_head.mp4"; clipf(srcs[0], head, p); parts.append(p)
+                srcs = [f"{LIP}/ex/{l}.mp4"]; got = head
+            else:
+                got = 0.0
             for k, cp in enumerate(srcs):
                 if got >= need - 0.04: break
                 L_ = min(dur(cp), need - got); p = f"{OUT}/seg/{si:02d}_c{i}_{k}.mp4"; clipf(cp, L_, p); parts.append(p); got += L_

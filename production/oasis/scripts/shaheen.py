@@ -38,7 +38,9 @@ else:
     from gradio_client import Client, handle_file
     c = Client('zerogpu-aoti/wan2-2-fp8da-aoti-faster', verbose=False)
     todo = [(l, f"{L}/sh/crop_{l}.jpg", TALK.format(e=TAG[l])) for l in SPEC] + [(l, f"{EP}/{v[0]}.jpg", v[1]) for l, v in EXTRA.items()]
+    only = sys.argv[2:]
     for l, src, prompt in todo:
+        if only and l not in only: continue
         need = dur(f"{SC}/tts/full/line_{l}.wav") + 0.4
         k = 0
         while need > 0.3:
