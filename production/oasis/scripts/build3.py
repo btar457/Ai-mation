@@ -158,7 +158,7 @@ for si, s in enumerate(SHOTS):
                     while os.path.exists(f"{CL}/{l}_{k}.mp4"): srcs.append(f"{CL}/{l}_{k}.mp4"); k += 1
             if os.path.exists(f"{LIP}/ex/{l}.mp4") and srcs:
                 head = min(1.2, dur(srcs[0])); p = f"{OUT}/seg/{si:02d}_c{i}_head.mp4"; clipf(srcs[0], head, p); parts.append(p)
-                srcs = [f"{LIP}/ex/{l}.mp4"]; got = head
+                srcs = [f"{LIP}/ex/{l}.mp4", f"{LIP}/ex/{l}_rev.mp4"]; got = head
             else:
                 got = 0.0
             for k, cp in enumerate(srcs):
@@ -220,6 +220,12 @@ for si, s in enumerate(SHOTS):
             ov.append((png, t + max(0, a - 0.05), t + b + 0.1)); wi += n
         timeline.append((t0 + t, l))
         t += LD[l] + GAP
+    subs = sorted([o for o in ov if "/sub_" in o[0]], key=lambda o: o[1]); rest_ov = [o for o in ov if "/sub_" not in o[0]]
+    fixed = []
+    for j, (png, a_, b_) in enumerate(subs):
+        if j + 1 < len(subs): b_ = min(b_, subs[j+1][1] - 0.02)
+        if b_ > a_ + 0.05: fixed.append((png, a_, b_))
+    ov = rest_ov + fixed
     if s.get("badge"):
         im = Image.new("RGBA",(W,H),(0,0,0,0)); dd = ImageDraw.Draw(im)
         dd.rounded_rectangle((W-360,30,W-30,120), 24, fill="#FF7A2F")
