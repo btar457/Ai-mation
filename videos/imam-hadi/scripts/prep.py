@@ -16,13 +16,13 @@ T = [
  ("S4", 28.6, "push", dict(flick=.5)), ("S5", 30.3, "in", dict(glow=[.52, .47, .075], dust=.7)),
  ("S5c", 36.2, "orbit", dict(glow=[.535, .29, .12], dust=.7)), ("S7", 42.8, "right", dict(flick=.5)),
  ("S3c", 46.6, "left", dict(dust=.8)), ("S9", 50.8, "push", dict(flick=.6)), ("H1c", 52.1, "in", dict(flick=.7)),
- ("H1", 55.7, "orbit", dict(flick=.6, glow=[.37, .42, .07])), ("H1i", 59.9, "push", dict(glow=[.62, .55, .11])),
- ("H1i", 64.4, "out", dict(glow=[.62, .55, .11])), ("S2", 68.1, "in", dict(flick=.7)),
- ("S5c", 72.3, "in", dict(glow=[.535, .29, .12])), ("S2", 76.0, "push", dict(flick=.9)), ("H3", 77.3, "in", dict(flick=.6)),
- ("P1", 79.0, "up", dict(dust=.4)), ("P2", 88.0, "in", dict(dust=.9)), ("P3", 96.8, "push", dict(dust=.8)),
- ("P4", 105.4, "left", dict(dust=.5)), ("P5", 113.8, "push", dict(dust=.8)), ("P6", 122.2, "out", dict(dust=.7)),
- ("S1", 130.7, "out", dict(flick=.8)), ("H1c", 136.7, "push", dict(flick=.5, bright=.9)), ("E3", 145.9, "right", dict(flick=.6)),
- ("H2", 147.7, "in", {}), ("E5", 150.5, "in", dict(dust=.6, warm=1)),
+ ("H1", 55.7, "orbit", dict(flick=.6, glow=[.37, .42, .07])), ("H1i", 59.91, "push", dict(glow=[.62, .55, .11])),
+ ("H1i", 62.6, "out", dict(glow=[.62, .55, .11])), ("S2", 65.14, "in", dict(flick=.7)),
+ ("S5c", 70.22, "in", dict(glow=[.535, .29, .12])), ("S2", 73.88, "push", dict(flick=.9)), ("H3", 76.12, "in", dict(flick=.6)),
+ ("P1", 77.70, "up", dict(dust=.4)), ("P2", 86.75, "in", dict(dust=.9)), ("P3", 95.51, "push", dict(dust=.8)),
+ ("P4", 104.13, "left", dict(dust=.5)), ("P5", 112.55, "push", dict(dust=.8)), ("P6", 120.92, "out", dict(dust=.7)),
+ ("S1", 129.42, "out", dict(flick=.8)), ("H1c", 135.42, "push", dict(flick=.5, bright=.9)), ("E3", 144.61, "right", dict(flick=.6)),
+ ("H2", 146.41, "in", {}), ("E5", 149.21, "in", dict(dust=.6, warm=1)),
 ]
 
 def src_path(i):

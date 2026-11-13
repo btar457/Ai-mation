@@ -48,7 +48,7 @@ def align(script_text, wtimes, offset):
         out[i] = (s, max(s + 0.15, e))
     return [(w, round(s + offset, 3), round(e + offset, 3)) for w, (s, e) in zip(sw, out)]
 
-rm, im = load("voice/rm.wav"), load("voice/imam.wav")
+rm, im, cf = load("voice/rm.wav"), load("voice/imam.wav"), load("voice/caliph_fx.wav")  # المتوكل: صوت Alnilam أفخم مع صدى قاعة
 S = lambda x, a, b: x[int(a * SR):int(b * SR)]
 R_TEXT = [t for _, t in PART_RM]
 I_TEXT = [t for _, t in PART_I]
@@ -58,17 +58,19 @@ PLAN = [
  ("im", 32.47, 36.08, "أين الأسِرّةُ والتيجانُ والحُلَلُ؟", "I", 0.55, "hook"),
  ("rm", 0.30, 7.83, R_TEXT[0], "R", 0.7, "intro"),
  ("rm", 7.83, 57.78, " ".join(R_TEXT[1:8]), "R", 0.3, "story"),
- ("im", 0.00, 7.98, I_TEXT[0], "I", 0.25, "refuse"),
- ("rm", 57.78, 61.94, R_TEXT[8] + " " + R_TEXT[9], "RM", 0.25, "ask"),
+ ("im", 3.00, 7.98, I_TEXT[0], "I", 0.25, "refuse"),
+ ("rm", 57.78, 59.95, R_TEXT[8], "R", 0.1, "ask_r"),
+ ("cf", 0.25, 2.86, R_TEXT[9], "M", 0.3, "ask"),
  ("im", 8.00, 11.45, I_TEXT[1], "I", 0.2, "little"),
- ("rm", 61.94, 64.60, R_TEXT[10] + " " + R_TEXT[11], "MR", 0.45, "insist"),
+ ("cf", 3.25, 5.30, R_TEXT[10], "M", 0.2, "insist"),
+ ("rm", 63.43, 64.60, R_TEXT[11], "R", 0.45, "insist_r"),
 ] + [("im", a, b, V[k], "I", 0.6 if k < 5 else 0.8, f"v{k+1}") for k, (a, b) in enumerate(
     [(11.45, 19.90), (19.90, 28.06), (28.06, 36.08), (36.08, 43.90), (43.90, 51.67), (51.67, 59.37)])] + [
  ("rm", 64.64, 97.33, " ".join(R_TEXT[12:]), "R", 1.6, "end"),
 ]
 out, t, segs, words = [], 0.0, [], []
 for src, a, b, text, who, gap, tag in PLAN:
-    x = S(rm if src == "rm" else im, a, b)
+    x = S({"rm": rm, "im": im, "cf": cf}[src], a, b)
     if src == "rm": x = tempo(x, RTEMPO)
     fade = int(0.015 * SR); x[:fade] *= np.linspace(0, 1, fade); x[-fade:] *= np.linspace(1, 0, fade)
     w = align(text, words_of(x), t)
