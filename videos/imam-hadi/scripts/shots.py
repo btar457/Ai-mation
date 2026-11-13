@@ -1,11 +1,8 @@
 """اللقطات: (المعرّف، البرومبت). الإمام دائماً بلا ملامح: وجهه نور."""
-STYLE = ("cinematic 2D digital painting, epic Islamic historical drama, 9th-century Abbasid Samarra, deep teal night "
-         "shadows and warm golden candle light, volumetric light, film grain, vertical 9:16 composition, highly detailed, "
-         "no text, no letters, no watermark")
-IMAM = ("a dignified holy man in a simple coarse dark wool robe and a white turban whose face is completely hidden by a "
-        "radiant soft white-golden glowing light, no facial features visible, serene posture")
-CALIPH = ("a proud Abbasid caliph in his forties with a short black beard, a tall black turban, black and gold brocade "
-          "robes and jeweled rings")
+STYLE = ("cinematic painting, epic Islamic historical drama, 9th century Abbasid Samarra, deep teal shadows and warm "
+         "golden candle light, volumetric light, film grain, no text")
+IMAM = "a holy man in a simple dark wool robe whose face is hidden by radiant white light"
+CALIPH = "an Abbasid caliph with black turban, black beard and gold robe"
 SHOTS = {
  "H1": f"inside a lavish candle-lit Abbasid palace hall at night, {CALIPH} sitting on a golden throne frozen in shock holding a golden wine cup, a tear on his cheek, and {IMAM} standing before him seen from behind, glowing light around the holy man",
  "H2": "the city of Samarra at night seen from above, the giant spiral minaret of Samarra (Malwiya, a tall cone-shaped spiral tower) glowing under the moon, palaces with lamps, the Tigris river",
