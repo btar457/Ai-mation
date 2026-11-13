@@ -18,11 +18,11 @@ T = [
  ("S3c", 46.6, "left", dict(dust=.8)), ("S9", 50.8, "push", dict(flick=.6)), ("H1c", 52.1, "in", dict(flick=.7)),
  ("H1", 55.7, "orbit", dict(flick=.6, glow=[.37, .42, .07])), ("H1i", 59.91, "push", dict(glow=[.62, .55, .11])),
  ("H1i", 62.6, "out", dict(glow=[.62, .55, .11])), ("S2", 65.14, "in", dict(flick=.7)),
- ("S5c", 70.22, "in", dict(glow=[.535, .29, .12])), ("S2", 73.88, "push", dict(flick=.9)), ("H3", 76.12, "in", dict(flick=.6)),
- ("P1", 77.70, "up", dict(dust=.4)), ("P2", 86.75, "in", dict(dust=.9)), ("P3", 95.51, "push", dict(dust=.8)),
- ("P4", 104.13, "left", dict(dust=.5)), ("P5", 112.55, "push", dict(dust=.8)), ("P6", 120.92, "out", dict(dust=.7)),
- ("S1", 129.42, "out", dict(flick=.8)), ("H1c", 135.42, "push", dict(flick=.5, bright=.9)), ("E3", 144.61, "right", dict(flick=.6)),
- ("H2", 146.41, "in", {}), ("E5", 149.21, "in", dict(dust=.6, warm=1)),
+ ("S5c", 72.18, "in", dict(glow=[.535, .29, .12])), ("S2", 75.83, "push", dict(flick=.9)), ("H3", 79.50, "in", dict(flick=.6)),
+ ("P1", 81.07, "up", dict(dust=.4)), ("P2", 90.12, "in", dict(dust=.9)), ("P3", 98.88, "push", dict(dust=.8)),
+ ("P4", 107.50, "left", dict(dust=.5)), ("P5", 115.92, "push", dict(dust=.8)), ("P6", 124.29, "out", dict(dust=.7)),
+ ("S1", 132.79, "out", dict(flick=.8)), ("H1c", 138.79, "push", dict(flick=.5, bright=.9)), ("E3", 147.98, "right", dict(flick=.6)),
+ ("H2", 149.78, "in", {}), ("E5", 152.58, "in", dict(dust=.6, warm=1)),
 ]
 
 def src_path(i):

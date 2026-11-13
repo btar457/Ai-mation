@@ -2,8 +2,10 @@
 import base64, json, subprocess, sys, urllib.request
 VOICE, OUT = sys.argv[1], sys.argv[2]
 script = "Caliph: أنشِدني شعراً أستحسنُه.\n\nCaliph: لا بدّ أن تُنشدَني!"
-desc = ("Caliph is a mighty, majestic Abbasid caliph on his throne: a deep, resonant, imperious royal voice, slow and "
-        "heavy with authority, every word weighty and commanding.")
+import os
+desc = os.environ.get("DESC", "Caliph is the most powerful emperor on earth, seated on his throne in a vast stone hall: a booming, "
+        "thunderous, very deep chest voice, loud and projected, slow and heavy, every word an order that cannot be refused, "
+        "full of pride and menace.")
 body = {"contents": [{"parts": [{"text": f"TTS the following conversation. {desc}\n{script}"}]}],
         "generationConfig": {"responseModalities": ["AUDIO"], "speechConfig": {"multiSpeakerVoiceConfig": {"speakerVoiceConfigs": [
             {"speaker": "Caliph", "voiceConfig": {"prebuiltVoiceConfig": {"voiceName": VOICE}}},
