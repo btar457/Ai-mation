@@ -10,21 +10,33 @@ OUT = "film/assets/img"; os.makedirs(OUT, exist_ok=True)
 CROPS = {"H1c": ("H1", .36, .30, .64), "H1i": ("H1", .0, .12, .58), "S5c": ("S5", .22, .30, .62), "S3c": ("S3", .30, .25, .62)}
 # جدول اللقطات: (الصورة، البداية، الحركة، خيارات)
 T = [
- ("H1", 0.0, "push", dict(flick=.6, glow=[.37, .42, .07])),
- ("H2", 4.1, "in", {}), ("H3", 7.6, "left", dict(flick=.8)), ("H2", 12.0, "out", {}),
- ("S1", 13.4, "in", dict(flick=.8)), ("S2", 17.1, "push", dict(flick=.7)), ("S3", 23.4, "in", dict(dust=.9)),
- ("S4", 28.6, "push", dict(flick=.5)), ("S5", 30.3, "in", dict(glow=[.52, .47, .075], dust=.7)),
- ("S5c", 36.2, "orbit", dict(glow=[.535, .29, .12], dust=.7)), ("S7", 42.8, "right", dict(flick=.5)),
- ("S3c", 46.6, "left", dict(dust=.8)), ("S9", 50.8, "push", dict(flick=.6)), ("H1c", 52.1, "in", dict(flick=.7)),
- ("H1", 55.7, "orbit", dict(flick=.6, glow=[.37, .42, .07])), ("H1i", 59.91, "push", dict(glow=[.62, .55, .11])),
- ("H1i", 62.6, "out", dict(glow=[.62, .55, .11])), ("S2", 65.14, "in", dict(flick=.7)),
- ("S5c", 72.18, "in", dict(glow=[.535, .29, .12])), ("S2", 75.83, "push", dict(flick=.9)), ("H3", 79.50, "in", dict(flick=.6)),
- ("P1", 81.07, "up", dict(dust=.4)), ("P2", 90.12, "in", dict(dust=.9)), ("P3", 98.88, "push", dict(dust=.8)),
- ("P4", 107.50, "left", dict(dust=.5)), ("P5", 115.92, "push", dict(dust=.8)), ("P6", 124.29, "out", dict(dust=.7)),
- ("S1", 132.79, "out", dict(flick=.8)), ("H1c", 138.79, "push", dict(flick=.5, bright=.9)), ("E3", 147.98, "right", dict(flick=.6)),
- ("H2", 149.78, "in", {}), ("E5", 152.58, "in", dict(dust=.6, warm=1)),
+ ("H1", ("hook", 0.0), "push", dict(flick=.6, glow=[.37, .42, .07])),
+ ("H2", ("intro", -0.06), "in", {}), ("H3", ("intro", 3.44), "left", dict(flick=.8)), ("H2", ("intro", 7.84), "out", {}),
+ ("S1", ("story", 1.37), "in", dict(flick=.8)), ("S2", ("story", 5.07), "push", dict(flick=.7)), ("S3", ("story", 11.37), "in", dict(dust=.9)),
+ ("S4", ("story", 16.57), "push", dict(flick=.5, shake=.5)), ("S5", ("story", 18.27), "in", dict(glow=[.52, .47, .075], dust=.7, rays=.4)),
+ ("S5c", ("story", 24.17), "orbit", dict(glow=[.535, .29, .12], dust=.7, rays=.5)), ("S7", ("story", 30.77), "right", dict(flick=.5)),
+ ("S3c", ("story", 34.57), "left", dict(dust=.8)), ("S9", ("story", 38.77), "push", dict(flick=.6)),
+ ("S10", ("story", 40.07), "in", dict(flick=.8)),
+ ("S11", ("story", 43.67), "orbit", dict(flick=.6)),
+ ("S12", ("refuse", 0.0), "push", dict(rays=.4)),
+ ("H1i", ("refuse", 3.4), "out", dict(glow=[.62, .55, .11], rays=.3)),
+ ("H1c", ("ask_r", 0.0), "in", dict(flick=.7)), ("S2", ("ask", 0.0), "push", dict(flick=.7)),
+ ("S5c", ("little", 0.0), "in", dict(glow=[.535, .29, .12], rays=.5)),
+ ("S2", ("insist", 0.0), "push", dict(flick=.9, shake=1.0)), ("R2", ("insist_r", 0.0), "in", dict(flick=.6)),
+ ("P1", ("v1", 0.0), "up", dict(dust=.4, desat=.3, rays=.4, fade=1)), ("R2", ("v1", 5.4), "in", dict(desat=.25, flick=.4)),
+ ("P2", ("v2", 0.0), "in", dict(dust=.9, desat=.35)),
+ ("P3", ("v3", 0.0), "push", dict(dust=.8, desat=.35, rays=.3)), ("R1", ("v3", 5.6), "push", dict(desat=.3, flick=.4)),
+ ("P4", ("v4", 0.0), "left", dict(dust=.5, desat=.4)), ("P5", ("v5", 0.0), "push", dict(dust=.8, desat=.45, rays=.3)),
+ ("P6", ("v6", 0.0), "out", dict(dust=.7, desat=.45)), ("R1", ("v6", 4.6), "push", dict(desat=.35, flick=.3)),
+ ("R2", ("end", 0.0), "out", dict(flick=.6, desat=.2)),
+ ("E2", ("end", 5.65), "push", dict(flick=.4, desat=.25, bright=.95)),
+ ("E1", ("end", 12.25), "in", dict(flick=.4, desat=.2)),
+ ("E3", ("end", 15.2), "right", dict(flick=.6, dim=1)),
+ ("E4", ("end", 17.0), "in", dict(rays=.6, glow=None)),
+ ("E5", ("end", 19.8), "in", dict(dust=.6, warm=1)),
 ]
 
+FALLBACK = {"E2": "H1c", "E1": "S1", "R1": "S2", "R2": "S1", "S10": "H1c", "S11": "H1", "S12": "H1i", "E4": "H2"}
 def src_path(i):
     for ext in ("png", "jpg"):
         if os.path.exists(f"images/{i}.{ext}"): return f"images/{i}.{ext}"
@@ -35,6 +47,8 @@ def load(i):
         cw = int(W * w); ch = int(cw * 16 / 9); x = int(W * x0); y = min(int(H * y0), H - ch)
         return im.crop((x, y, x + cw, y + ch))
     p = src_path(i)
+    if not p and i in FALLBACK:
+        print("FALLBACK", i, "->", FALLBACK[i], flush=True); return load(FALLBACK[i])
     if not p: return None
     im = Image.open(p).convert("RGB")
     if p.endswith(".jpg"): im = im.crop((0, 0, im.width, int(im.height * .92)))   # علامة Pollinations
@@ -62,9 +76,15 @@ if missing: sys.exit(f"missing images: {missing}")
 
 tl = json.load(open("timeline.json"))
 shots = []
+SEG = {x["tag"]: x for x in tl["segments"]}
+def at(anc):
+    tag, off = anc
+    seg = SEG[tag]
+    return round(min(seg["start"] + off, seg["end"] - 0.3) if off > 0 else seg["start"] + off, 3)
+T = [(img, at(anc), m, o) for img, anc, m, o in T]
 for k, (img, a, m, o) in enumerate(T):
     b = T[k + 1][1] if k + 1 < len(T) else tl["duration"]
-    shots.append({"img": img, "a": a, "b": b, "m": m, **o})
-open("film/data.js", "w").write("const DATA = " + json.dumps({"duration": tl["duration"], "shots": shots, "words": tl["words"],
+    shots.append({"img": img, "a": a, "b": b, "m": m, **{k: v for k, v in o.items() if v is not None}})
+open("film/data.js", "w").write("const DATA = " + json.dumps({"duration": tl["duration"], "shots": shots, "words": tl["words"], "segments": tl["segments"],
                                  "poem": POEM}, ensure_ascii=False) + ";\n")
 print("data.js ok", len(shots), "shots")

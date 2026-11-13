@@ -54,7 +54,7 @@ canvas{position:absolute;inset:0;width:1080px;height:1920px}
 const gl = document.getElementById("gl").getContext("webgl", {preserveDrawingBuffer: true, antialias: false});
 const VS = `attribute vec2 p; varying vec2 uv; void main(){ uv = p*0.5+0.5; uv.y = 1.0-uv.y; gl_Position = vec4(p,0.,1.); }`;
 const FS = `precision highp float; varying vec2 uv;
-uniform sampler2D uImg, uDep; uniform float uZoom, uDolly, uFocus, uBright, uFlick, uTime, uWarm;
+uniform sampler2D uImg, uDep; uniform float uZoom, uDolly, uFocus, uBright, uFlick, uTime, uWarm, uDesat, uRays;
 uniform vec2 uCam, uCenter;
 float dep(vec2 q){ return texture2D(uDep, q).r; }
 void main(){
@@ -69,6 +69,16 @@ void main(){
   // وميض الشموع
   float fl = 1.0 + uFlick * (0.05*sin(uTime*13.0) + 0.035*sin(uTime*7.3+1.7) + 0.025*sin(uTime*23.1));
   col *= uBright * fl;
+  // إزالة اللون تدريجياً (برودة الحزن في القصيدة والبكاء)
+  float g = dot(col, vec3(.299,.587,.114)); col = mix(col, vec3(g)*vec3(.92,.97,1.05), uDesat);
+  // أشعة نور من الأعلى تتمايل ببطء
+  if (uRays > 0.0){
+    vec2 r = uv - vec2(.5 + .08*sin(uTime*.23), -.15);
+    float ang = atan(r.x, r.y);
+    float beams = pow(.5 + .5*sin(ang*14.0 + uTime*.35), 6.0) * .6 + pow(.5 + .5*sin(ang*7.0 - uTime*.2), 4.0) * .4;
+    float fall = smoothstep(1.25, .0, length(r)) * smoothstep(-.1, .45, uv.y < .9 ? 1.0 - uv.y : .0);
+    col += vec3(1., .9, .7) * beams * fall * uRays * .35;
+  }
   // تظليل الأطراف وحبيبات الفيلم
   vec2 v = uv - .5; col *= 1.0 - dot(v*vec2(1.1,0.75), v*vec2(1.1,0.75)) * 0.9;
   float n = fract(sin(dot(uv*vec2(1080.,1920.) + uTime*61.0, vec2(12.9898,78.233))) * 43758.5453);
@@ -148,11 +158,11 @@ const WHO = {M: ["المتوكل", "#ff9b6b"], I: ["الإمام", "#f2c46d"]};
 
 function setText(t){
   // العنوان: من الإطار الأول حتى بداية القصة
-  $("title").style.opacity = t < 11.6 ? 1 : Math.max(0, 1 - (t - 11.6) / .4);
-  $("label").style.opacity = t > 12.2 && t < 80.8 ? .85 : (t > 132.7 ? .85 : 0);
+  $("title").style.opacity = t < SEGT.story - .5 ? 1 : Math.max(0, 1 - (t - SEGT.story + .5) / .4);
+  $("label").style.opacity = t > SEGT.story && t < SEGT.v1 - .4 ? .85 : (t > SEGT.end ? .85 : 0);
   // بيت الخطاف كلمة كلمة
   [...$("hookv").children].forEach((s, i) => s.style.opacity = t >= HOOK[i][1] - .08 ? Math.min(1, (t - HOOK[i][1] + .08) / .2) : 0);
-  $("hookv").style.opacity = t < 4.0 ? 1 : Math.max(0, 1 - (t - 4.0) / .3);
+  $("hookv").style.opacity = t < SEGT.intro - .2 ? 1 : Math.max(0, 1 - (t - SEGT.intro + .2) / .3);
   // الأبيات
   const v = VERSES.find(x => t >= x.a && t < x.end);
   if (v){ $("h1").textContent = v.h1; $("h2").textContent = v.h2;
@@ -161,7 +171,7 @@ function setText(t){
     $("h1").style.filter = $("h2").style.filter = "none";
   } else { $("h1").style.opacity = $("h2").style.opacity = 0; }
   // الترجمة
-  const c = !v && t > 4.0 ? CAPS.find(x => t >= x[1] && t < x[2]) : null;
+  const c = !v && t > SEGT.intro - .1 ? CAPS.find(x => t >= x[1] && t < x[2]) : null;
   $("cap").textContent = c ? c[0] : "";
   const w = c && WHO[c[3]];
   $("cap").style.color = w ? w[1] : "#fff";
@@ -169,18 +179,23 @@ function setText(t){
 }
 
 // ===== اللقطات =====
-const SHOTS = DATA.shots;  // {img, a, b, m, bright, flick, dust, glow:[x,y,r]}
+const SHOTS = DATA.shots;
+const SEGT = Object.fromEntries(DATA.segments.map(x => [x.tag, x.start]));  // {img, a, b, m, bright, flick, dust, glow:[x,y,r]}
 function shotAt(t){ let s = SHOTS[0]; for (const x of SHOTS) if (t >= x.a) s = x; return s; }
 function render(t){
   const s = shotAt(t), i = SHOTS.indexOf(s), nxt = SHOTS[i + 1];
   const p = Math.min(1, Math.max(0, (t - s.a) / (s.b - s.a)));
   const k = cam(s.m, p);
+  if (s.shake){ const a = s.shake * Math.max(0, 1 - p*1.6) * .006;   // اهتزاز قصير في بداية اللقطة
+    k.cam = [k.cam[0] + a*Math.sin(t*61), k.cam[1] + a*Math.cos(t*47)]; }
   gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, TEX[s.img].img);
   gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, TEX[s.img].dep);
   gl.uniform1f(U("uZoom"), k.z); gl.uniform1f(U("uDolly"), k.dolly); gl.uniform2f(U("uCam"), k.cam[0], k.cam[1]);
   gl.uniform1f(U("uFocus"), s.focus ?? .45); gl.uniform2f(U("uCenter"), s.cx ?? .5, s.cy ?? .5);
   gl.uniform1f(U("uBright"), s.bright ?? 1.0); gl.uniform1f(U("uFlick"), s.flick ?? 0); gl.uniform1f(U("uTime"), t);
   gl.uniform1f(U("uWarm"), s.warm ?? 0);
+  gl.uniform1f(U("uDesat"), s.desat ?? 0); gl.uniform1f(U("uRays"), s.rays ?? 0);
+  if (s.dim) gl.uniform1f(U("uBright"), (s.bright ?? 1) * (1 - .45*p));   // إطفاء الشموع تدريجياً
   gl.viewport(0, 0, 1080, 1920); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   // نور وجه الإمام: نبض هادئ، ويتبع حركة الكاميرا تقريباً
   const g = $("glow");

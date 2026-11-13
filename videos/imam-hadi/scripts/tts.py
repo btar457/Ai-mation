@@ -11,9 +11,10 @@ if part == "RM":
             "dramatic pauses. Caliph is a proud, half-drunk Abbasid caliph, commanding and arrogant.")
 else:
     lines, spk = PART_I, ["I", "R"]
-    desc = ("Imam is a calm, dignified, deeply spiritual elder speaking classical Arabic softly and slowly. When he "
-            "recites the poem he declaims each verse slowly and movingly, like classical Arabic poetry recitation, "
-            "with a short pause between the two halves of each verse and a longer pause after each verse.")
+    desc = os.environ.get("IMAM_DESC", "Imam is a saintly, sorrowful elder with a warm, deep, slightly husky voice. He speaks classical Arabic "
+            "very slowly and gently, heavy with grief. When he recites the poem it is a mournful elegy (ritha'): slow, "
+            "trembling with emotion, his voice almost breaking with sorrow, drawing out the long vowels, a soft pause "
+            "between the two halves of each verse and a long sad pause after each verse, as if reminding kings of death.")
 script = "\n".join(f"{NAME[s]}: {t}" for s, t in lines)
 body = {"contents": [{"parts": [{"text": f"TTS the following conversation. {desc}\n{script}"}]}],
         "generationConfig": {"responseModalities": ["AUDIO"], "speechConfig": {"multiSpeakerVoiceConfig": {"speakerVoiceConfigs": [

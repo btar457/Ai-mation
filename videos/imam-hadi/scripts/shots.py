@@ -32,3 +32,16 @@ SHOTS = {
  "E4": f"dawn, {IMAM} walking out through the great gate of the palace, guards lowering their heads respectfully, golden morning light",
  "E5": "the ruins of the Abbasid palaces of Samarra at sunset, crumbling mud-brick walls and arches, the giant spiral minaret of Samarra (Malwiya) in the background, empty and silent",
 }
+# لقطات مخصصة إضافية (ملاحظات المستخدم: لا تكرار، والصورة تطابق الكلام، وتأثر الحاضرين)
+COURT = "courtiers and servants in turbans and silk robes"
+SHOTS.update({
+ "E2": f"close-up of {CALIPH} weeping uncontrollably, tears streaming down his cheeks into his black beard, head bowed, his golden wine cup slipping from his trembling hand, candle light",
+ "E1": f"{COURT} in a candle-lit palace hall weeping, some covering their faces with their hands, others with tears on their cheeks, deeply moved, heads bowed",
+ "R1": f"close-up of {CALIPH} listening in shock, face turned pale, eyes wide and glistening, holding a golden wine cup frozen in mid-air, candle light, silence",
+ "R2": f"{COURT} frozen in fear in a candle-lit palace hall, holding their breath, staring anxiously toward the throne",
+ "S10": f"{CALIPH} reclining on silk cushions drinking from a golden wine cup, musicians with lutes and drums around him, candle-lit palace hall, decadent night feast",
+ "S11": f"{CALIPH} on silk cushions holding out a golden wine cup toward {IMAM} seated calmly beside him, candle-lit palace hall",
+ "S12": "close-up of a calm hand in a dark wool sleeve raised gently to refuse a golden wine cup offered by a hand with jeweled gold rings, soft holy light, candle light",
+ "E4": f"dawn, {IMAM} walking out through the great gate of the palace, guards lowering their heads respectfully, golden morning light",
+})
+PRIORITY = ["E2", "E1", "R1", "R2", "S10", "S11", "S12", "E4"]
