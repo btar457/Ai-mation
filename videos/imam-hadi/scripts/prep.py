@@ -17,7 +17,7 @@ T = [
  ("S5c", ("story", 24.17), "orbit", dict(glow=[.535, .29, .12], dust=.7, rays=.5)), ("S7", ("story", 30.77), "right", dict(flick=.5)),
  ("S3c", ("story", 34.57), "left", dict(dust=.8)), ("S9", ("story", 38.77), "push", dict(flick=.6)),
  ("S10", ("story", 40.07), "in", dict(flick=.8)),
- ("S11", ("story", 43.67), "orbit", dict(flick=.6)),
+ ("S11", ("story", 43.67), "orbit", dict(flick=.6, glow=[.69, .485, .07])),
  ("S12", ("refuse", 0.0), "push", dict(rays=.4)),
  ("H1i", ("refuse", 3.4), "out", dict(glow=[.62, .55, .11], rays=.3)),
  ("H1c", ("ask_r", 0.0), "in", dict(flick=.7)), ("S2", ("ask", 0.0), "push", dict(flick=.7)),
