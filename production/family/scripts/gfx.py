@@ -63,7 +63,7 @@ def letter_build(letter, dur, out, caption=None, color=BLUE):
             px, py = pos(kind, off); yy = -120 + (py + 120) * bounce(min(1, p))
             d.ellipse((px - r, yy - r, px + r, yy + r), fill=RED, outline="white", width=6)
         if caption and t > 0.8 + 0.55*len(dots) + 0.4:
-            txt(d, (W//2, H - 70), caption, 54, INK)
+            txt(d, (W//2, 90), caption, 60, INK)
         w.stdin.write(im.tobytes())
     w.stdin.close(); w.wait()
 
@@ -99,7 +99,7 @@ def choice_quiz(question, options, correct, dur, out, count_at=None):
             d.rounded_rectangle((x, y, x+cw, y+330), 36, fill=(255, 255, 255, 235 if not dim else 120),
                                 outline=GREEN if ok else (230, 200, 160), width=14 if ok else 6)
             if em: im.paste(em, (x + cw//2 - 85, y + 30), em)
-            txt(d, (x + cw//2, y + (270 if em else 165)), lab, 64 if em else 120, INK if not dim else (150, 140, 130), font=FT)
+            txt(d, (x + cw//2, y + (270 if em else 165)), lab, 64 if em else (120 if len(lab) <= 2 else 52), INK if not dim else (150, 140, 130), font=FT)
             if ok:
                 d.ellipse((x+cw-70, y-30, x+cw+20, y+60), fill=GREEN)
                 d.line([(x+cw-48, y+15), (x+cw-30, y+35), (x+cw-2, y-8)], fill="white", width=10, joint="curve")
@@ -167,5 +167,19 @@ def title_card(title, sub, dur, out, bg_img=None):
         t = i / FPS; im = base.copy(); d = ImageDraw.Draw(im); s = ease(min(1, t / 0.5))
         txt(d, (W//2, H//2 - 60), title, int(120*(0.7 + 0.3*s)), "#FFD54A", font=FT, stroke=10, sf="#3a1d05")
         if t > 0.4: txt(d, (W//2, H//2 + 85), sub, 70, "white", font=FT, stroke=8, sf="#3a1d05")
+        w.stdin.write(im.tobytes())
+    w.stdin.close(); w.wait()
+
+def cubes(bg_img, dur, out):
+    n = int(dur * FPS); w = writer(out, n)
+    base = Image.open(bg_img).convert("RGB").resize((W, H)).filter(ImageFilter.GaussianBlur(16))
+    cols = ["#E74C3C", "#3498DB", "#F1C40F", "#2ECC71"]; L = ["ب", "ت", "ث", "ن"]
+    for i in range(n):
+        t = i / FPS; im = base.copy(); d = ImageDraw.Draw(im)
+        for j in range(4):
+            p = bounce(min(1, max(0, (t - 0.25*j) / 0.7))); x = 230 + j*273; y = int(-200 + (420 + 200) * p)
+            d.rounded_rectangle((x - 105, y - 105, x + 105, y + 105), 28, fill=cols[j], outline="white", width=10)
+            d.polygon([(x - 105, y - 105), (x - 70, y - 140), (x + 140, y - 140), (x + 105, y - 105)], fill="white")
+            txt(d, (x, y + 5), L[j], 150, "white", font=FT, stroke=6, sf=INK)
         w.stdin.write(im.tobytes())
     w.stdin.close(); w.wait()
