@@ -45,7 +45,7 @@ def frame(t):
     d = ImageDraw.Draw(txt)
     # اسم الشاعر صغيراً في الأعلى
     # اسم الشاعر (صاحب الشعر والإلقاء) في الأسفل، فوق منطقة وصف تيك توك
-    d.text((W / 2, 1495), CREDIT, font=small, fill=(255, 226, 170, 225), anchor="mm", direction="rtl")
+    d.text((W - 48, 1770), CREDIT, font=small, fill=(255, 226, 170, 225), anchor="rm", direction="rtl")   # أسفل اليمين
     for words, end in LINES:
         if not (words[0][1] - 0.02 <= t < end): continue
         xs = words_layout(words)
