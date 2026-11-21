@@ -18,14 +18,14 @@ LINES = [   # النص بإملاء المستخدم
  ([("لا", 11.80), ("كال", 12.38), ("اريدك", 12.74), ("فحم", 13.22)], 13.98),
  ([("مرتين", 13.98), ("راد", 14.36), ("اشتعل", 14.70)], 15.40),
 ]
-CREDIT = "شعر: سمير صبيح"
+CREDIT = "الشاعر سمير صبيح"
 
 def run(cmd):
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode: sys.exit(r.stderr[-1500:])
 
 font = ImageFont.truetype("fonts/NotoNaskhArabic-Bold.ttf", 84, layout_engine=ImageFont.Layout.RAQM)
-small = ImageFont.truetype("fonts/Amiri-Bold.ttf", 40, layout_engine=ImageFont.Layout.RAQM)
+small = ImageFont.truetype("fonts/NotoNaskhArabic-Bold.ttf", 42, layout_engine=ImageFont.Layout.RAQM)
 
 def words_layout(words):
     """مواضع الكلمات من اليمين إلى اليسار في سطر واحد (أو سطرين إذا طال)."""
@@ -44,7 +44,8 @@ def frame(t):
     txt = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(txt)
     # اسم الشاعر صغيراً في الأعلى
-    d.text((W / 2, 230), CREDIT, font=small, fill=(255, 240, 220, 215), anchor="mm", direction="rtl")
+    # اسم الشاعر (صاحب الشعر والإلقاء) في الأسفل، فوق منطقة وصف تيك توك
+    d.text((W / 2, 1495), CREDIT, font=small, fill=(255, 226, 170, 225), anchor="mm", direction="rtl")
     for words, end in LINES:
         if not (words[0][1] - 0.02 <= t < end): continue
         xs = words_layout(words)
