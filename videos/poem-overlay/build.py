@@ -73,10 +73,9 @@ for i in range(n):
 # 2) الفيديو: خلفية مموّهة تملأ 9:16، والفيديو كاملاً في الوسط، بلا صوت أصلي، ثم النص والقصيدة
 run(["ffmpeg", "-y", "-v", "error", "-ss", str(SRC_START), "-t", f"{AUDIO_DUR:.3f}", "-i", "in/source.mp4",
      "-framerate", str(FPS), "-i", "out/txt/%04d.png", "-i", "in/poem.mp3", "-filter_complex",
-     f"[0:v]fps={FPS},split=2[a][b];"
-     f"[a]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},gblur=sigma=28,eq=brightness=-0.12[bg];"
-     f"[b]scale={W}:-2:flags=lanczos[fg];"
-     f"[bg][fg]overlay=0:(H-h)/2[v0];[v0][1:v]overlay=0:0,fade=t=out:st={AUDIO_DUR-0.5:.2f}:d=0.5,format=yuv420p[v];"
+     # قص الحواف: 608x1080 من وسط الإطار (النار بين البكسل 144 و578) ثم تكبير إلى 1080x1920 ليملأ الشاشة
+     f"[0:v]fps={FPS},crop=608:1080:56:0,scale={W}:{H}:flags=lanczos,unsharp=5:5:0.5[v0];"
+     f"[v0][1:v]overlay=0:0,fade=t=out:st={AUDIO_DUR-0.5:.2f}:d=0.5,format=yuv420p[v];"
      f"[2:a]loudnorm=I=-14:TP=-1:LRA=11,afade=t=out:st={AUDIO_DUR-0.4:.2f}:d=0.4[aud]",
      "-map", "[v]", "-map", "[aud]", "-t", f"{AUDIO_DUR:.3f}", "-c:v", "libx264", "-preset", "slow", "-crf", "19",
      "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", "out/poem.mp4"])
