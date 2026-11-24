@@ -6,7 +6,7 @@ sys.path.insert(0, "scripts")
 OUT = "film/assets/img"; os.makedirs(OUT, exist_ok=True)
 
 # اقتصاصات مشتقة: (المصدر، x0، y0، العرض كنسبة)
-CROPS = {"L1c": ("L1", .20, .22, .62), "L12c": ("L12", .25, .20, .55)}
+CROPS = {"L7c": ("L7", .30, .48, .50), "L1c": ("L1", .20, .22, .62), "L12c": ("L12", .25, .20, .55)}
 # جدول اللقطات: (الصورة، (الجملة، الإزاحة)، الحركة، خيارات)
 T = [
  ("L1", ("l1", 0.0), "push", dict(shake=.35, dust=.5)), ("L1c", ("l1", 1.5), "orbit", dict(dust=.5)),
@@ -14,7 +14,7 @@ T = [
  ("L3", ("l3", 0.0), "push", dict(dust=.2)),
  ("L4", ("l4", 0.0), "left", dict(dust=.4)),
  ("L5", ("l5", 0.0), "in", dict(dust=.4)), ("L6", ("l5", 1.9), "right", dict(dust=.3)),
- ("L7", ("l6", 0.0), "orbit", dict(dust=.9)),
+ ("L7c", ("l6", 0.0), "orbit", dict(dust=.9)),
  ("L8", ("l7", 0.0), "push", dict(dust=.2)),
  ("L9", ("l8", 0.0), "push", dict(shake=.7, dust=.6)),
  ("L10", ("l9", 0.0), "in", dict(dust=.3, desat=.2)),
