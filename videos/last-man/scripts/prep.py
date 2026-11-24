@@ -6,7 +6,7 @@ sys.path.insert(0, "scripts")
 OUT = "film/assets/img"; os.makedirs(OUT, exist_ok=True)
 
 # اقتصاصات مشتقة: (المصدر، x0، y0، العرض كنسبة)
-CROPS = {"L7c": ("L7", .30, .48, .50), "L1c": ("L1", .20, .22, .62), "L12c": ("L12", .25, .20, .55)}
+CROPS = {"L7c": ("L7", .30, .48, .50), "L1c": ("L1", .20, .12, .62), "L10c": ("L10", .0, .22, .78), "L11c": ("L11", .15, .30, .70), "L12f": ("L12g", .0, .27, .73), "L12c": ("L12g", .22, .30, .56)}
 # جدول اللقطات: (الصورة، (الجملة، الإزاحة)، الحركة، خيارات)
 T = [
  ("L1", ("l1", 0.0), "push", dict(shake=.35, dust=.5)), ("L1c", ("l1", 1.5), "orbit", dict(dust=.5)),
@@ -17,9 +17,9 @@ T = [
  ("L7c", ("l6", 0.0), "orbit", dict(dust=.9)),
  ("L8", ("l7", 0.0), "push", dict(dust=.2)),
  ("L9", ("l8", 0.0), "push", dict(shake=.7, dust=.6)),
- ("L10", ("l9", 0.0), "in", dict(dust=.3, desat=.2)),
- ("L11", ("l10", 0.0), "push", dict(shake=.6, warm=.5)),
- ("L12", ("l11", 0.0), "orbit", dict(warm=.6)),
+ ("L10c", ("l9", 0.0), "in", dict(dust=.3, desat=.2)),
+ ("L11c", ("l10", 0.0), "push", dict(shake=.6, warm=.5)),
+ ("L12f", ("l11", 0.0), "orbit", dict(warm=.6)),
  ("L12c", ("l12", 0.0), "push", dict(warm=.3, desat=.35)),
 ]
 FALLBACK = {}
